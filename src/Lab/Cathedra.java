@@ -3,24 +3,23 @@ package Lab;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
-import static Utility.DataInput.getString;
+import static Utility.DataManagement.getNames;
 
-public class Cathedra {
+public class Cathedra extends Named{
 
-    String name;
-    private LinkedList<Teacher> listOfTeachers = new LinkedList<Teacher>();
+    private LinkedList<Teacher> listOfTeachers = new LinkedList<>();
 
-    Cathedra(String s) {
-        name = s;
+    Cathedra(Named parent, String name) {
+        this.name = name;
+        this.parent = parent;
     }
 
     public void newTeachers() {
         if (listOfTeachers.isEmpty()) System.out.println("The list of teachers is empty.");
         else {
-            System.out.println(listOfTeachers.toString());
+            System.out.println(getNames(listOfTeachers));
         }
-        int numOfTeachers = listOfTeachers.size() + 1;
-        String askForStop = "Yes";
+        String askForStop;
         do {
             String teacherName = getString("The name of a teacher is: ");
             //makes sure there is no duplication among teachers` names
@@ -33,22 +32,22 @@ public class Cathedra {
     }
 
 
-    public void changeStuff() {
+    public void changeStaff() {
         if (listOfTeachers.isEmpty()) {
             System.out.println("There are no teachers! No body to edit.)>");
             return;
         }
-        System.out.println(listOfTeachers.toString());
+        System.out.println(getNames(listOfTeachers));
         String whatToDo = getString("Edit, Delete or Both?");
-        if (whatToDo.equals("Edit")) editStuff();
-        else if (whatToDo.equals("Delete")) deleteStuff();
+        if (whatToDo.equals("Edit")) editStaff();
+        else if (whatToDo.equals("Delete")) deleteStaff();
         else if (whatToDo.equals("Both")) {
-            deleteStuff();
-            editStuff();
+            deleteStaff();
+            editStaff();
         } else System.out.println("No changes are done!");
     }
 
-    private void deleteStuff() {
+    private void deleteStaff() {
         String whomToDelete = getString("Whom to delete: ");
         StringTokenizer tokenizer = new StringTokenizer(whomToDelete, ",");
         while(tokenizer.hasMoreTokens()){
@@ -67,7 +66,7 @@ public class Cathedra {
         System.out.println("Deletion completed.");
     }
 
-    private void editStuff() {
+    private void editStaff() {
         label:
         while (true) {
             String whomToEdit = getString("Whom to change: ");
@@ -91,5 +90,14 @@ public class Cathedra {
             }
             System.out.println("There is no such a teacher!");
         }
+    }
+
+    /**
+     * Method for changing the name of the cathedra
+     * @author Yaroslav Petryk
+     */
+    public void changeName() {
+        String newName = getString("Enter new name of the cathedra:");
+        this.name = newName;
     }
 }

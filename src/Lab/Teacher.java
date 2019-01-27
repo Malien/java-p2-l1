@@ -2,9 +2,8 @@ package Lab;
 
 import static Utility.DataInput.getInt;
 
-public class Teacher {
+public class Teacher extends Named{
 
-    private String name;
     private int group;
     private int course;
 

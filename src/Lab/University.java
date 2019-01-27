@@ -2,8 +2,7 @@ package Lab;
 
 import java.util.LinkedList;
 
-import static Utility.DataManagement.contains;
-import static Utility.DataManagement.indexOf;
+import static Utility.DataManagement.*;
 
 public class University extends Named{
 
@@ -24,13 +23,13 @@ public class University extends Named{
         int count = 0;
         System.out.println("To stop entering faculty names type \"stop\"");
         while (true) {
-            String name = getString("Enter the name of the faculty № " + (count + 1) + " : ");
-            if (name.equals("stop")) break;
-            if (contains(faculties, name)) {
+            String facultyName = getString("Enter the name of the faculty № " + (count + 1) + " : ");
+            if (facultyName.equals("stop")) break;
+            if (contains(faculties, facultyName)) {
                 System.out.println("Such faculty already exists.");
                 continue;
             }
-            faculties.add(new Faculty(this, name));
+            faculties.add(new Faculty(this, facultyName));
             count++;
         }
     }
@@ -55,7 +54,7 @@ public class University extends Named{
             System.out.println("There is nothing to delete. No faculties present!");
             return;
         }
-        System.out.println(faculties);
+        System.out.println(getNames(faculties));
         String toDelete = getString("Which faculty to delete?");
         int index = indexOf(faculties, toDelete);
         if (index == -1) {
@@ -71,7 +70,7 @@ public class University extends Named{
             System.out.println("There is nothing to edit. No faculties present!");
             return;
         }
-        System.out.println(faculties);
+        System.out.println(getNames(faculties));
 
         String facultyName = getString("Which faculty would you like to edit? ");
         int index = indexOf(faculties, facultyName);
@@ -87,7 +86,7 @@ public class University extends Named{
             System.out.println("No faculties present!");
             return;
         }
-        System.out.println(faculties);
+        System.out.println(getNames(faculties));
 
         String whichFaculty;
         whichFaculty = getString("What is the faculty you want to add teaches to?");

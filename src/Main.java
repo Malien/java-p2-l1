@@ -4,7 +4,7 @@ import static Utility.DataInput.getString;
 
 public class Main {
     public static void main(String[] args){
-        University university = new University();
+        University university = new University("KMA");
         while(true) {
             int keepOn = askForChange(university);
             if (keepOn == 0) break;
