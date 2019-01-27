@@ -1,19 +1,21 @@
+import Lab.University;
+
 import static Utility.DataInput.getString;
 
 public class Main {
     public static void main(String[] args){
-        KMA launcher = new KMA();
+        University university = new University();
         while(true) {
-            int keepOn = askForChange(launcher);
+            int keepOn = askForChange(university);
             if (keepOn == 0) break;
         }
 
-        launcher.addTeachers();
-        launcher.addStudents();
+        university.addTeachers();
+        university.addStudents();
     }
 
 
-    private static int askForChange(KMA l) {
+    private static int askForChange(University l) {
         String change = "";
         try {
             change = getString("Would you like to make some changes to faculties? ");

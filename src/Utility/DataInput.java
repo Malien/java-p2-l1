@@ -57,5 +57,19 @@ public final class DataInput {
 			return "";
 		}
 	}
+
+	public static String getString(String path, String str){
+		try{
+			System.out.println(str);
+			System.out.print(path+"> ");
+			InputStreamReader isr = new InputStreamReader(System.in);
+			BufferedReader br = new BufferedReader(isr);
+			String s = br.readLine();
+			return s;
+		} catch (IOException e){
+			System.out.println(e.getStackTrace());
+			return "";
+		}
+	}
 	
 }

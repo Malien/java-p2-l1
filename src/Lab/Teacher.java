@@ -1,3 +1,5 @@
+package Lab;
+
 import static Utility.DataInput.getInt;
 
 public class Teacher {

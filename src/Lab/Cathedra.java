@@ -1,3 +1,5 @@
+package Lab;
+
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
@@ -5,7 +7,7 @@ import static Utility.DataInput.getString;
 
 public class Cathedra {
 
-    String name = "";
+    String name;
     private LinkedList<Teacher> listOfTeachers = new LinkedList<Teacher>();
 
     Cathedra(String s) {
@@ -55,7 +57,7 @@ public class Cathedra {
                 if(listOfTeachers.get(i).getName().equals(nextTeacher)) listOfTeachers.remove(i);
                 /*
                 //this code is supposed to be equal
-                for(Teacher t: listOfTeachers){
+                for(Lab.Teacher t: listOfTeachers){
                 if(t.getName().equals(nextTeacher)) t = null;
             }
                  */
