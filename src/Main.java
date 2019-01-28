@@ -20,8 +20,8 @@ public class Main {
         try {
             change = getString("Would you like to make some changes to faculties? ");
         }catch (Exception e){}
-        if (change.equals("Yes")) l.changeFaculty();
-        else return 0;
+//        if (change.equals("Yes")) l.changeFaculty();
+//        else return 0;
 
         //ask if the user wants to stay in changing menu
         String carryOn = getString("Do you want to make some more changes? ");
