@@ -10,7 +10,7 @@ public class DataManagement {
      * Searches for instances of faculty name inside faculty lists
      * @param list a list of Named entries
      * @param name the name of searched entry
-     * @return the first index found of faculty (if none if found returns -1)
+     * @return the first index found of faculty (if none is found returns -1)
      * @author Yaroslav Petryk
      */
     public static int indexOf(LinkedList<? extends Named> list, String name){
@@ -45,6 +45,7 @@ public class DataManagement {
      * @author Yaroslav Petryk
      */
     public static String getNames(LinkedList<? extends Named> list){
+        if (list.isEmpty())return "The list is empty yes.";
         String names = "| ";
         for (Named entry : list){
             names = names.concat(entry.name + " | ");

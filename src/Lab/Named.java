@@ -42,4 +42,9 @@ public abstract class Named {
     void changeName(){
         name = getString("Enter new name for "+name);
     }
+
+    //made for catherda 'delete' method
+    String getName(){
+        return this.name;
+    }
 }

@@ -9,8 +9,8 @@ public class Faculty extends Named{
     private LinkedList<Cathedra> cathedras = new LinkedList<>();
 
     private final static String HELP_MSG = "Available commands:\n" +
-            "Name   - change name of the faculty" +
-            "And    - add cathedras to faculty" +
+            "Name   - change name of the faculty\n" +
+            "Add    - add cathedras to faculty\n" +
             "Edit   - edit cathedras on faculty\n" +
             "Delete - delete cathedra on faculty\n" +
             "List   - show list of all cathedras on faculty\n" +
@@ -23,20 +23,26 @@ public class Faculty extends Named{
         addCathedra();
     }
 
+    /**
+     * @author Rozhko Andrew
+     */
+    int count = 0;
     private void addCathedra() {
-        int count = 0;
+        int tempCount = 0;
         String cathedraName;
         System.out.println("To stop entering cathedras names type \"stop\"");
         while (true) {
-            cathedraName = getString("Enter the name of the cathedra № " + (count + 1) + " : ");
+            cathedraName = getString("Enter the name of the cathedra № " + (tempCount + 1) + " : ");
             if (cathedraName.equals("stop")) break;
             if (contains(cathedras, cathedraName)) {
                 System.out.println("Such cathedra already exists.");
                 continue;
             }
             cathedras.add(new Cathedra(this, cathedraName));
+            tempCount++;
             count++;
         }
+        System.out.println(tempCount + " cathedra(s) were added.");
     }
 
     public void settings() {
@@ -72,18 +78,29 @@ public class Faculty extends Named{
             }
         }
     }
-
-    private void editCathedra() {
+    /**
+     * @author Rozhko Andrew
+     */
+    private int indexOfCathedra() {
         if (cathedras.isEmpty()) {
             System.out.println("There are no cathedras to delete or edit!");
-            return;
+            return -1;
         }
-        String cathedra = getString("Which cathedra is to edit?");
+        String cathedra = getString("Which cathedra is to processed?");
         int index = indexOf(cathedras, cathedra);
         if (index == -1) {
             System.out.println("The name is misspelled. No changes are done.");
-            return;
+            return index;
         }
+        return index;
+    }
+
+    /**
+     * @author Rozhko Andrew
+     */
+    private void editCathedra() {
+             int index = indexOfCathedra();
+             if (index == -1) return;
         cathedras.get(index).settings();
 //        if (getString("Do you want to change the name of the cathedra? ").equals("Yes")) {
 //            cathedras.get(index).changeName();
@@ -93,33 +110,51 @@ public class Faculty extends Named{
 //        }
     }
 
+    /**
+     * @author Rozhko Andrew
+     */
     private void deleteCathedra() {
-        if (cathedras.isEmpty()) {
-            System.out.println("There are no cathedras to delete or edit!");
-            return;
-        }
-        String whichToDelete = getString("Which cathedra is to delete?");
-        int index = indexOf(cathedras, whichToDelete);
-        if (index == -1) {
-            System.out.println("The name is misspelled. No changes are done.");
-            return;
-        }
+       int index = indexOfCathedra();
+       if (index == -1) return;
         cathedras.remove(index);
         System.out.println("Deletion is completed.");
     }
 
+    /**
+     * @author Rozhko Andrew
+     */
     public void submitTeachers() {
+        int index = submitDuplication();
+        if (index == -1) return;
+        cathedras.get(index).newTeachers();
+    }
+
+    /**
+     * @author Rozhko Andrew
+     */
+    public void submitStudents() {
+        int index = submitDuplication();
+        if (index == -1) return;
+        cathedras.get(index).newStudents();
+    }
+
+    /**
+     * reduces the duplication of code
+     * @author Rozhko Andrew
+     * @return index of the person in the list
+     */
+    private int submitDuplication(){
         if (cathedras.isEmpty()) {
             System.out.println("There are no cathedras in this faculty! You should have added them first.");
-            return;
+            return -1;
         }
         System.out.println("The list of cathedras:\n" + getNames(cathedras));
-        String cathedra = getString("Which cathedra you want to expand? ");
+        String cathedra = getString("Which cathedra you want to enlarge? ");
         int index = indexOf(cathedras, cathedra);
         if (index == -1) {
             System.out.println("There is no such a cathedra!");
-            return;
+            return -1;
         }
-        cathedras.get(index).newTeachers();
+        return index;
     }
 }

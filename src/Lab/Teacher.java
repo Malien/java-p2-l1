@@ -13,6 +13,8 @@ public class Teacher extends Named{
         course = getInt("Enter the course of a teacher: ");
     }
 
+    //overrides 'named' method
+    @Override
     public String getName() {
         return name;
     }

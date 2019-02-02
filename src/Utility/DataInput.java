@@ -3,6 +3,7 @@ package Utility;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.IllegalFormatException;
 
 public final class DataInput {
 
@@ -23,19 +24,26 @@ public final class DataInput {
 		String s = getString();
 		return s.charAt(0);
 	}
-	
+
+	//getInt with handled FormatException
 	public static Integer getInt(String wr){
 		writeText(wr);
 		String s = "";
-		try {
-			s = getString();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		while (true){
+			try {
+				s = getString();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			Integer value;
+			try {
+				value = Integer.valueOf(s);
+			}catch (NumberFormatException e){
+				System.out.println("You can only enter integer numbers.");
+				continue;
+			}
+			return value;
 		}
-		Integer value = Integer.valueOf(s);
-		return value;
-		
 	}
 	
 	public static String getString() throws IOException{

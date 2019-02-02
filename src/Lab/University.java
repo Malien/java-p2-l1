@@ -4,10 +4,10 @@ import java.util.LinkedList;
 
 import static Utility.DataManagement.*;
 
-public class University extends Named{
+public class University extends Named {
 
     private static final String HELP_MSG = "Available commands:\n" +
-            "Name    - change the name of university" +
+            "Name    - change the name of university\n" +
             "Add     - add new faculties\n" +
             "Edit    - edit existing faculties\n" +
             "Delete  - delete any existing faculty\n" +
@@ -21,21 +21,22 @@ public class University extends Named{
 
     /**
      * constructor for university
+     *
      * @param name the name of uni
      * @author Yaroslav Petryk
      */
-    public University(String name){
+    public University(String name) {
         this.name = name;
         System.out.println("Initial configuration of university. Please enter the faculties first.");
         addFaculty();
         consoleHandler();
     }
 
-    private void consoleHandler(){
+    private void consoleHandler() {
         System.out.println(HELP_MSG);
-        while (true){
+        while (true) {
             String ans = getString();
-            switch(ans.toLowerCase()){
+            switch (ans.toLowerCase()) {
                 case "name":
                     changeName();
                     break;
@@ -48,11 +49,10 @@ public class University extends Named{
                 case "delete":
                     deleteFaculty();
                 case "staff":
-                    //TODO: implement teacher add/delete mechanism
-                    addTeachers();
+                    System.out.println("Enter settings of the appropriate cathedra so as to make changes in the list of teachers.");
                     break;
                 case "student":
-                    //TODO: implement student add/delete mechanism
+                    System.out.println("Enter settings of the appropriate cathedra so as to make changes in the list of students.");
                     break;
                 case "list":
                     System.out.println(getNames(faculties));
@@ -63,27 +63,36 @@ public class University extends Named{
                 case "stop":
                     return;
                 default:
-                    System.out.println("No such command as \""+ans+"\"");
+                    System.out.println("No such command as \"" + ans + "\"");
                     break;
             }
         }
     }
 
+    /**
+     * @author Rozhko Andrew
+     */
+    int countFac = 0;
     private void addFaculty() {
-        int count = 0;
+    int tempCount = 0;
         System.out.println("To stop entering faculty names type \"stop\"");
         while (true) {
-            String facultyName = getString("Enter the name of the faculty № " + (count + 1) + " : ");
+            String facultyName = getString("Enter the name of the faculty № " + (countFac + 1) + " : ");
             if (facultyName.equals("stop")) break;
             if (contains(faculties, facultyName)) {
                 System.out.println("Such faculty already exists.");
                 continue;
             }
             faculties.add(new Faculty(this, facultyName));
-            count++;
+            tempCount++;
+            countFac++;
         }
+        System.out.println(tempCount + " faculty(ies) were created.");
     }
 
+    /**
+     * @author Rozhko Andrew
+     */
     private void deleteFaculty() {
         if (faculties.isEmpty()) {
             System.out.println("There is nothing to delete. No faculties present!");
@@ -97,9 +106,12 @@ public class University extends Named{
             return;
         }
         faculties.remove(index);
+        countFac--;
     }
 
-
+    /**
+     * @author Rozhko Andrew
+     */
     private void editFaculty() {
         if (faculties.isEmpty()) {
             System.out.println("There is nothing to edit. No faculties present!");
@@ -116,6 +128,10 @@ public class University extends Named{
         faculties.get(index).settings();
     }
 
+    /**
+     * @author Rozhko Andrew
+     */
+    //there is some duplication but its handling introduces little use
     public void addTeachers() {
         if (faculties.isEmpty()) {
             System.out.println("No faculties present!");
@@ -123,8 +139,7 @@ public class University extends Named{
         }
         System.out.println(getNames(faculties));
 
-        String whichFaculty;
-        whichFaculty = getString("What is the faculty you want to add teaches to?");
+        String whichFaculty = getString("What is the faculty you want to add teaches to?");
         int index = indexOf(faculties, whichFaculty);
         if (index == -1) {
             System.out.println("There is no such a faculty. No changes are done.");
@@ -133,6 +148,22 @@ public class University extends Named{
         faculties.get(index).submitTeachers();
     }
 
-    public void addStudents () {
+    /**
+     * @author Rozhko Andrew
+     */
+    public void addStudents() {
+        if (faculties.isEmpty()) {
+            System.out.println("No faculties present!");
+            return;
+        }
+        System.out.println(getNames(faculties));
+
+        String whichFaculty = getString("What is the faculty you want to add students to?");
+        int index = indexOf(faculties, whichFaculty);
+        if (index == -1) {
+            System.out.println("There is no such a faculty. No changes are done.");
+            return;
+        }
+        faculties.get(index).submitStudents();
     }
 }
