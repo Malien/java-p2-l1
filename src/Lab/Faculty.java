@@ -26,7 +26,6 @@ public class Faculty extends Named{
     /**
      * @author Rozhko Andrew
      */
-    int count = 0;
     private void addCathedra() {
         int tempCount = 0;
         String cathedraName;
@@ -40,12 +39,11 @@ public class Faculty extends Named{
             }
             cathedras.add(new Cathedra(this, cathedraName));
             tempCount++;
-            count++;
         }
         System.out.println(tempCount + " cathedra(s) were added.");
     }
 
-    public void settings() {
+    public void handleConsole() {
         System.out.println(HELP_MSG);
         System.out.println("The list of cathedras:\n" + getNames(cathedras));
 
@@ -78,64 +76,24 @@ public class Faculty extends Named{
             }
         }
     }
-    /**
-     * @author Rozhko Andrew
-     */
-    private int indexOfCathedra() {
-        if (cathedras.isEmpty()) {
-            System.out.println("There are no cathedras to delete or edit!");
-            return -1;
-        }
-        String cathedra = getString("Which cathedra is to processed?");
-        int index = indexOf(cathedras, cathedra);
-        if (index == -1) {
-            System.out.println("The name is misspelled. No changes are done.");
-            return index;
-        }
-        return index;
-    }
 
     /**
      * @author Rozhko Andrew
      */
     private void editCathedra() {
-             int index = indexOfCathedra();
-             if (index == -1) return;
-        cathedras.get(index).settings();
-//        if (getString("Do you want to change the name of the cathedra? ").equals("Yes")) {
-//            cathedras.get(index).changeName();
-//        }
-//        if (getString("Do you want to change the name of staff? ").equals("Yes")) {
-//            cathedras.get(index).changeStaff();
-//        }
+        int index = getCathedraIndex();
+        if (index == -1) return;
+        cathedras.get(index).handleConsole();
     }
 
     /**
      * @author Rozhko Andrew
      */
     private void deleteCathedra() {
-       int index = indexOfCathedra();
+       int index = getCathedraIndex();
        if (index == -1) return;
         cathedras.remove(index);
         System.out.println("Deletion is completed.");
-    }
-
-    /**
-     * @author Rozhko Andrew
-     */
-    public void submitTeachers() {
-        int index = submitDuplication();
-        if (index == -1) return;
-        cathedras.get(index).newTeachers();
-    }
-
-    /**
-     * @author Rozhko Andrew
-     */
-    public void submitStudents() {
-        int index = submitDuplication();
-        if (index == -1) return;
-        cathedras.get(index).newStudents();
     }
 
     /**
@@ -143,7 +101,7 @@ public class Faculty extends Named{
      * @author Rozhko Andrew
      * @return index of the person in the list
      */
-    private int submitDuplication(){
+    private int getCathedraIndex(){
         if (cathedras.isEmpty()) {
             System.out.println("There are no cathedras in this faculty! You should have added them first.");
             return -1;

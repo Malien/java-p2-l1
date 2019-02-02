@@ -2,8 +2,13 @@ package Lab;
 
 import Utility.DataInput;
 
+import java.util.LinkedList;
+
+import static Utility.DataManagement.delete;
+import static Utility.DataManagement.getNames;
+
 public abstract class Named {
-    public String name;
+    String name;
     Named parent;
 
     /**
@@ -13,14 +18,8 @@ public abstract class Named {
      * @author Yaroslav Petryk
      */
     String getString(String str){
-        String path = "";
-        Named parent = this.parent;
-        while (parent != null) {
-            path = path.concat(parent.name + "/");
-            parent = parent.parent;
-        }
-        path += name;
-        return DataInput.getString(path, str);
+        System.out.println(str);
+        return getString();
     }
 
     /**
@@ -29,22 +28,66 @@ public abstract class Named {
      * @author Yaroslav Petryk
      */
     String getString(){
+        return DataInput.getString(getPath());
+    }
+
+    /**
+     * Returns printable path in university hierarchy
+     * @return string of a path
+     * @author Yaroslav Petryk
+     */
+    String getPath(){
         String path = "";
         Named parent = this.parent;
         while (parent != null) {
             path = path.concat(parent.name + "/");
             parent = parent.parent;
         }
-        path += name;
-        return DataInput.getString(path+">");
+        path += name + "> ";
+        return path;
     }
 
+    /**
+     * Get integer number typed to a console
+     * @param str message to be displayed
+     * @return integer form console
+     * @author Yaroslav Petryk
+     */
+    int getInt(String str){
+        System.out.println(str);
+        return getInt();
+    }
+
+    /**
+     * Get integer number typed to a console
+     * @return integer form console
+     * @author Yaroslav Petryk
+     */
+    int getInt(){
+        return DataInput.getInt(getPath());
+    }
+
+    /**
+     * Changes name of the object
+     * @author Yaroslav Petryk
+     */
     void changeName(){
         name = getString("Enter new name for "+name);
     }
 
-    //made for catherda 'delete' method
-    String getName(){
+    /**
+     * getter for a name property
+     * @return the name property
+     * @author Rozhko Andrew
+     */
+    public String getName(){
         return this.name;
+    }
+
+    void deleteFromList(LinkedList<? extends Named> list){
+        String[] names = getString("What entry should be deleted?").split("[\\W]");
+        int count = delete(list, names);
+        System.out.println("Deleted "+count+" entries");
+        System.out.println(getNames(list));
     }
 }

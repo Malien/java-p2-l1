@@ -1,7 +1,6 @@
 package Lab;
 
 import java.util.LinkedList;
-import java.util.StringTokenizer;
 
 import static Utility.DataManagement.contains;
 import static Utility.DataManagement.getNames;
@@ -20,14 +19,14 @@ public class Cathedra extends Named {
             "Stop - exit cathedra configuration";
 
     private LinkedList<Teacher> teachers = new LinkedList<>();
-    private LinkedList<Student> studentsList = new LinkedList<>();
+    private LinkedList<Student> students = new LinkedList<>();
 
     Cathedra(Named parent, String name) {
         this.name = name;
         this.parent = parent;
     }
 
-    public void settings() {
+    public void handleConsole() {
         System.out.println(HELP_MSG);
         while (true) {
             String ans = getString();
@@ -48,7 +47,7 @@ public class Cathedra extends Named {
                     changeStaff();
                     break;
                 case "zombies":
-                    System.out.println(getNames(studentsList));
+                    System.out.println(getNames(students));
                     break;
                 case "dig":
                     changeStudents();
@@ -82,7 +81,7 @@ public class Cathedra extends Named {
                 System.out.println("Such name for teacher is already used.");
                 continue;
             }
-            teachers.add(new Teacher(teacherName));
+            teachers.add(new Teacher(this, teacherName));
         }
     }
 
@@ -95,43 +94,17 @@ public class Cathedra extends Named {
             return;
         }
         System.out.println(getNames(teachers));
-        String whatToDo = getString("Edit, Delete or Both?");
+        String whatToDo = getString("Edit or Delete?");
         switch (whatToDo) {
             case "Edit":
                 editStaff();
                 break;
             case "Delete":
-                deleteStaff();
-                break;
-            case "Both":
-                deleteStaff();
-                editStaff();
+                deleteFromList(teachers);
                 break;
             default:
                 System.out.println("No changes are done!");
                 return;
-        }
-    }
-    /**
-     * @author Rozhko Andrew
-     */
-    private void deleteStaff() {
-        delete(teachers);
-        System.out.println(teachers.toString());
-        System.out.println("Deletion completed.");
-    }
-
-    /**
-     * @author Rozhko Andrew
-     */
-    private void delete(LinkedList<? extends Named> list) {
-        String whomToDelete = getString("Whom to delete: ");
-        StringTokenizer tokenizer = new StringTokenizer(whomToDelete, ",");
-        while (tokenizer.hasMoreTokens()) {
-            String nextPerson = tokenizer.nextToken();
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getName().equals(nextPerson)) list.remove(i);
-            }
         }
     }
 
@@ -154,7 +127,7 @@ public class Cathedra extends Named {
                             continue;
                         }
                         //if no duplicates found, replace the teacher
-                        teachers.set(i, new Teacher(newName));
+                        teachers.set(i, new Teacher(this, newName));
                         continue label;
                     }
                 }
@@ -168,20 +141,20 @@ public class Cathedra extends Named {
      * @author Rozhko Andrew
      */
     public void newStudents() {
-        if (studentsList.isEmpty()) System.out.println("The list of students is empty.");
+        if (students.isEmpty()) System.out.println("The list of students is empty.");
         else {
-            System.out.println(getNames(studentsList));
+            System.out.println(getNames(students));
         }
         System.out.println("Enter \"stop\" to finish.");
         while (true) {
             String studentName = getString("The name of a student is: ");
             //makes sure there is no duplication among students` names
             if (studentName.equals("stop")) break;
-            else if (contains(studentsList, studentName)) {
+            else if (contains(students, studentName)) {
                 System.out.println("Such name for student is already used.");
                 continue;
             }
-            studentsList.add(new Student(studentName));
+            students.add(new Student(this, studentName));
         }
     }
 
@@ -189,36 +162,23 @@ public class Cathedra extends Named {
      * @author Rozhko Andrew
      */
     private void changeStudents() {
-        if (studentsList.isEmpty()) {
+        if (students.isEmpty()) {
             System.out.println("There are no students! No body to edit.)>");
             return;
         }
-        System.out.println(getNames(studentsList));
-        String whatToDo = getString("Edit, Delete or Both?");
+        System.out.println(getNames(students));
+        String whatToDo = getString("Edit or Delete?");
         switch (whatToDo) {
             case "Edit":
                 editStudents();
                 break;
             case "Delete":
-                deleteStudents();
-                break;
-            case "Both":
-                deleteStudents();
-                editStudents();
+                deleteFromList(students);
                 break;
             default:
                 System.out.println("No changes are done!");
                 return;
         }
-    }
-
-    /**
-     * @author Rozhko Andrew
-     */
-    private void deleteStudents() {
-        delete(studentsList);
-        System.out.println(studentsList.toString());
-        System.out.println("Deletion completed.");
     }
 
     /**
@@ -230,21 +190,20 @@ public class Cathedra extends Named {
         while (true) {
             String whomToEdit = getString("Whom to change: ");
             if (whomToEdit.equals("stop")) break;
-            for (int i = 0; i < studentsList.size(); i++) {
-                if (studentsList.get(i).getName().equals(whomToEdit)) {
+            for (int i = 0; i < students.size(); i++) {
+                if (students.get(i).getName().equals(whomToEdit)) {
                     String newName = getString("Enter a new student: ");
                     //check for duplication
-                    for (Student z : studentsList) {
+                    for (Student z : students) {
                         if (z.getName().equals(newName)) {
                             System.out.println("Duplicate found!");
                             continue;
                         }
                         //if no duplicates found, replace the student
-                        studentsList.set(i, new Student(newName));
+                        students.set(i, new Student(this, newName));
                         continue label;
                     }
                 }
-
             }
             System.out.println("There is no such a teacher!");
         }

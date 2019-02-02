@@ -15,7 +15,7 @@ public class DataManagement {
      */
     public static int indexOf(LinkedList<? extends Named> list, String name){
         for (int i = 0; i < list.size(); i++){
-            if (name.equals(list.get(i).name)){
+            if (name.equals(list.get(i).getName())){
                 return i;
             }
         }
@@ -31,7 +31,7 @@ public class DataManagement {
      */
     public static boolean contains(LinkedList<? extends Named> list, String name){
         for (Named entry : list){
-            if (name.equals(entry.name)) {
+            if (name.equals(entry.getName())) {
                 return true;
             }
         }
@@ -48,8 +48,39 @@ public class DataManagement {
         if (list.isEmpty())return "The list is empty yes.";
         String names = "| ";
         for (Named entry : list){
-            names = names.concat(entry.name + " | ");
+            names = names.concat(entry.getName() + " | ");
         }
         return names;
+    }
+
+    /**
+     * Removes entries from the list
+     * @param list a list of Named entries
+     * @param names an array of names that should be deleted
+     * @return the amount of deleted entries
+     * @author Rozhko Andrew, Yaroslav Petryk
+     */
+    public static int delete(LinkedList<? extends Named> list, String[] names) {
+        int count = 0;
+        for (String name : names) {
+            if (delete(list, name)) count++;
+        }
+        return count;
+    }
+
+    /**
+     * Removes single entry from the list
+     * @param list a list of Named entries
+     * @param name the name of searched entry
+     * @return whether or not the entry was removed successfully
+     * @author Yaroslav Petryk
+     */
+    public static boolean delete(LinkedList<? extends Named> list, String name) {
+        int index = indexOf(list, name);
+        if (index != -1){
+            list.remove(index);
+            return true;
+        }
+        return false;
     }
 }

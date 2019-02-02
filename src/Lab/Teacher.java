@@ -1,14 +1,13 @@
 package Lab;
 
-import static Utility.DataInput.getInt;
-
 public class Teacher extends Named{
 
     private int group;
     private int course;
 
-    Teacher(String tName) {
-        name = tName;
+    Teacher(Named parent, String name) {
+        this.parent = parent;
+        this.name = name;
         group = getInt("Enter the group of a teacher: ");
         course = getInt("Enter the course of a teacher: ");
     }

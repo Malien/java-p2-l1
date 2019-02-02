@@ -11,8 +11,6 @@ public class University extends Named {
             "Add     - add new faculties\n" +
             "Edit    - edit existing faculties\n" +
             "Delete  - delete any existing faculty\n" +
-            "Staff   - enter staff configuration mode\n" +
-            "Student - enter student configuration mode\n" +
             "List    - list all faculties\n" +
             "Help    - show this message again\n" +
             "Stop    - stop execution of program";
@@ -29,10 +27,9 @@ public class University extends Named {
         this.name = name;
         System.out.println("Initial configuration of university. Please enter the faculties first.");
         addFaculty();
-        consoleHandler();
     }
 
-    private void consoleHandler() {
+    public void handleConsole() {
         System.out.println(HELP_MSG);
         while (true) {
             String ans = getString();
@@ -48,12 +45,6 @@ public class University extends Named {
                     break;
                 case "delete":
                     deleteFaculty();
-                case "staff":
-                    System.out.println("Enter settings of the appropriate cathedra so as to make changes in the list of teachers.");
-                    break;
-                case "student":
-                    System.out.println("Enter settings of the appropriate cathedra so as to make changes in the list of students.");
-                    break;
                 case "list":
                     System.out.println(getNames(faculties));
                     break;
@@ -72,12 +63,11 @@ public class University extends Named {
     /**
      * @author Rozhko Andrew
      */
-    int countFac = 0;
     private void addFaculty() {
     int tempCount = 0;
         System.out.println("To stop entering faculty names type \"stop\"");
         while (true) {
-            String facultyName = getString("Enter the name of the faculty № " + (countFac + 1) + " : ");
+            String facultyName = getString("Enter the name of the faculty № " + (faculties.size() + 1) + " : ");
             if (facultyName.equals("stop")) break;
             if (contains(faculties, facultyName)) {
                 System.out.println("Such faculty already exists.");
@@ -85,7 +75,6 @@ public class University extends Named {
             }
             faculties.add(new Faculty(this, facultyName));
             tempCount++;
-            countFac++;
         }
         System.out.println(tempCount + " faculty(ies) were created.");
     }
@@ -106,7 +95,6 @@ public class University extends Named {
             return;
         }
         faculties.remove(index);
-        countFac--;
     }
 
     /**
@@ -125,45 +113,6 @@ public class University extends Named {
             System.out.println("There is no such a faculty.");
             return;
         }
-        faculties.get(index).settings();
-    }
-
-    /**
-     * @author Rozhko Andrew
-     */
-    //there is some duplication but its handling introduces little use
-    public void addTeachers() {
-        if (faculties.isEmpty()) {
-            System.out.println("No faculties present!");
-            return;
-        }
-        System.out.println(getNames(faculties));
-
-        String whichFaculty = getString("What is the faculty you want to add teaches to?");
-        int index = indexOf(faculties, whichFaculty);
-        if (index == -1) {
-            System.out.println("There is no such a faculty. No changes are done.");
-            return;
-        }
-        faculties.get(index).submitTeachers();
-    }
-
-    /**
-     * @author Rozhko Andrew
-     */
-    public void addStudents() {
-        if (faculties.isEmpty()) {
-            System.out.println("No faculties present!");
-            return;
-        }
-        System.out.println(getNames(faculties));
-
-        String whichFaculty = getString("What is the faculty you want to add students to?");
-        int index = indexOf(faculties, whichFaculty);
-        if (index == -1) {
-            System.out.println("There is no such a faculty. No changes are done.");
-            return;
-        }
-        faculties.get(index).submitStudents();
+        faculties.get(index).handleConsole();
     }
 }
