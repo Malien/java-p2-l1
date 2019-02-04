@@ -7,7 +7,7 @@ import static Utility.DataManagement.delete;
 import static Utility.DataManagement.getNames;
 
 public abstract class Named {
-    String name;
+    protected String name;
     Named parent;
 
     /**
@@ -83,6 +83,11 @@ public abstract class Named {
         return this.name;
     }
 
+    /**
+     * Handler for asking and mass deleting entries from the list
+     * @param list list from which entries should be deleted
+     * @author Yaroslav Petryk
+     */
     void deleteFromList(ArrayList<? extends Named> list){
         String[] names = getString("What entry should be deleted?").split("[\\W]");
         int count = delete(list, names);

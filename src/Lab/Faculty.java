@@ -43,6 +43,10 @@ public class Faculty extends Named{
         System.out.println(tempCount + " cathedra(s) were added.");
     }
 
+    /**
+     * The console handler for interacting with faculty
+     * @author Yaroslav Petryk, Rozhko Andrew
+     */
     public void handleConsole() {
         System.out.println(HELP_MSG);
         System.out.println("The list of cathedras:\n" + getNames(cathedras));

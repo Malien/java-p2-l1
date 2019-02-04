@@ -26,6 +26,10 @@ public class Cathedra extends Named {
         this.parent = parent;
     }
 
+    /**
+     * The console handler for interacting with faculty
+     * @author Yaroslav Petryk, Rozhko Andrew
+     */
     public void handleConsole() {
         System.out.println(HELP_MSG);
         while (true) {
