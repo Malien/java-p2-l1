@@ -1,6 +1,6 @@
 package Lab;
 
-import java.util.LinkedList;
+import Utility.ArrayList;
 
 import static Utility.DataManagement.*;
 
@@ -15,7 +15,7 @@ public class University extends Named {
             "Help    - show this message again\n" +
             "Stop    - stop execution of program";
 
-    private LinkedList<Faculty> faculties = new LinkedList<>();
+    private ArrayList<Faculty> faculties = new ArrayList<>();
 
     /**
      * constructor for university

@@ -1,12 +1,12 @@
 package Lab;
 
-import java.util.LinkedList;
+import Utility.ArrayList;
 
 import static Utility.DataManagement.*;
 
 public class Faculty extends Named{
 
-    private LinkedList<Cathedra> cathedras = new LinkedList<>();
+    private ArrayList<Cathedra> cathedras = new ArrayList<>();
 
     private final static String HELP_MSG = "Available commands:\n" +
             "Name   - change name of the faculty\n" +

@@ -1,6 +1,6 @@
 package Lab;
 
-import java.util.LinkedList;
+import Utility.ArrayList;
 
 import static Utility.DataManagement.contains;
 import static Utility.DataManagement.getNames;
@@ -18,8 +18,8 @@ public class Cathedra extends Named {
             "Help - show this message again\n" +
             "Stop - exit cathedra configuration";
 
-    private LinkedList<Teacher> teachers = new LinkedList<>();
-    private LinkedList<Student> students = new LinkedList<>();
+    private ArrayList<Teacher> teachers = new ArrayList<>();
+    private ArrayList<Student> students = new ArrayList<>();
 
     Cathedra(Named parent, String name) {
         this.name = name;
@@ -104,7 +104,7 @@ public class Cathedra extends Named {
                 break;
             default:
                 System.out.println("No changes are done!");
-                return;
+                break;
         }
     }
 
@@ -121,8 +121,8 @@ public class Cathedra extends Named {
                 if (teachers.get(i).getName().equals(whomToEdit)) {
                     String newName = getString("Enter a new teacher: ");
                     //check for duplication
-                    for (Teacher z : teachers) {
-                        if (z.getName().equals(newName)) {
+                    for (Teacher teacher : teachers) {
+                        if (teacher.getName().equals(newName)) {
                             System.out.println("Duplicate found!");
                             continue;
                         }
@@ -177,7 +177,7 @@ public class Cathedra extends Named {
                 break;
             default:
                 System.out.println("No changes are done!");
-                return;
+                break;
         }
     }
 
@@ -194,8 +194,8 @@ public class Cathedra extends Named {
                 if (students.get(i).getName().equals(whomToEdit)) {
                     String newName = getString("Enter a new student: ");
                     //check for duplication
-                    for (Student z : students) {
-                        if (z.getName().equals(newName)) {
+                    for (Student student : students) {
+                        if (student.getName().equals(newName)) {
                             System.out.println("Duplicate found!");
                             continue;
                         }

@@ -1,8 +1,7 @@
 package Lab;
 
+import Utility.ArrayList;
 import Utility.DataInput;
-
-import java.util.LinkedList;
 
 import static Utility.DataManagement.delete;
 import static Utility.DataManagement.getNames;
@@ -84,7 +83,7 @@ public abstract class Named {
         return this.name;
     }
 
-    void deleteFromList(LinkedList<? extends Named> list){
+    void deleteFromList(ArrayList<? extends Named> list){
         String[] names = getString("What entry should be deleted?").split("[\\W]");
         int count = delete(list, names);
         System.out.println("Deleted "+count+" entries");
