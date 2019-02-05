@@ -2,6 +2,8 @@ package Lab;
 
 import Utility.ArrayList;
 
+import java.util.Iterator;
+
 import static Utility.DataManagement.contains;
 import static Utility.DataManagement.getNames;
 
@@ -110,6 +112,24 @@ public class Cathedra extends Named {
                 System.out.println("No changes are done!");
                 break;
         }
+    }
+
+    /**
+     * Get iterator for the students list
+     * @return list iterator of type Student
+     * @author Yaroslav Petryk
+     */
+    Iterator<Student> studentIterator(){
+        return students.iterator();
+    }
+
+    /**
+     * Get iterator for the teachers list
+     * @return list iterator of type Teacher
+     * @author Yaroslav Petryk
+     */
+    Iterator<Teacher> teacherIterator(){
+        return teachers.iterator();
     }
 
     /**
