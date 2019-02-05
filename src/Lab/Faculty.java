@@ -2,8 +2,6 @@ package Lab;
 
 import Utility.ArrayList;
 
-import java.util.Iterator;
-
 import static Utility.DataManagement.*;
 
 public class Faculty extends Named{
@@ -84,12 +82,29 @@ public class Faculty extends Named{
     }
 
     /**
-     * Get iterator of cathedras
-     * @return list iterator of type Cathedra
-     * @author Yarosalv Petryk
+     * Get the list of all students on faculty
+     * @return ArrayList of students
+     * @author Yaroslav Petryk
      */
-    Iterator<Cathedra> cathedraIterator(){
-        return cathedras.iterator();
+    ArrayList<Student> getStudents(){
+        ArrayList<Student> students = new ArrayList<>();
+        for (Cathedra cathedra : cathedras){
+            students.extend(cathedra.getStudents());
+        }
+        return students;
+    }
+
+    /**
+     * Get the list of all teachers on faculty
+     * @return ArrayList of teachers
+     * @author Yaroslav Petryk
+     */
+    ArrayList<Teacher> getTeachers(){
+        ArrayList<Teacher> teachers = new ArrayList<>();
+        for (Cathedra cathedra : cathedras){
+            teachers.extend(cathedra.getTeachers());
+        }
+        return teachers;
     }
 
     /**

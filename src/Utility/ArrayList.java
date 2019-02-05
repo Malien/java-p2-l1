@@ -36,6 +36,19 @@ public class ArrayList<T> implements Iterable<T> {
     }
 
     /**
+     * Extend array with another array
+     * @param array that will provide data from which it should be extended
+     */
+    public void extend(ArrayList<T> arrayList){
+        if (array.length < arrayList.size() + arrSize){
+            array = Arrays.copyOf(array, arrayList.size() + arrSize);
+        }
+        for (T entry : arrayList){
+            add(entry);
+        }
+    }
+
+    /**
      * Set the element to a new one
      * @param index position where to set the element
      * @param element element to be set
@@ -128,5 +141,4 @@ public class ArrayList<T> implements Iterable<T> {
             return null;
         }
     }
-
 }

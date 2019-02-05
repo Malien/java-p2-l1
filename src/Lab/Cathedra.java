@@ -2,8 +2,6 @@ package Lab;
 
 import Utility.ArrayList;
 
-import java.util.Iterator;
-
 import static Utility.DataManagement.contains;
 import static Utility.DataManagement.getNames;
 
@@ -115,21 +113,21 @@ public class Cathedra extends Named {
     }
 
     /**
-     * Get iterator for the students list
-     * @return list iterator of type Student
+     * Get the list of all students on cathedra
+     * @return ArrayList of students
      * @author Yaroslav Petryk
      */
-    Iterator<Student> studentIterator(){
-        return students.iterator();
+    ArrayList<Student> getStudents(){
+        return students;
     }
 
     /**
-     * Get iterator for the teachers list
-     * @return list iterator of type Teacher
+     * Get the list of all teachers on cathedra
+     * @return ArrayList of teachers
      * @author Yaroslav Petryk
      */
-    Iterator<Teacher> teacherIterator(){
-        return teachers.iterator();
+    ArrayList<Teacher> getTeachers(){
+        return teachers;
     }
 
     /**
@@ -231,6 +229,5 @@ public class Cathedra extends Named {
             }
             System.out.println("There is no such a teacher!");
         }
-
     }
 }

@@ -2,8 +2,6 @@ package Lab;
 
 import Utility.ArrayList;
 
-import java.util.Iterator;
-
 import static Utility.DataManagement.*;
 
 public class University extends Named {
@@ -14,7 +12,8 @@ public class University extends Named {
             "Edit    - edit existing faculties\n" +
             "Delete  - delete any existing faculty\n" +
             "List    - list all faculties\n" +
-            "Find    - find teachers or students\n" +
+            "Find    - find teachers or students throughout the university\n" +
+            "Display - display all students grouped by course\n" +
             "Help    - show this message again\n" +
             "Stop    - stop execution of program";
 
@@ -22,7 +21,6 @@ public class University extends Named {
 
     /**
      * constructor for university
-     *
      * @param name the name of uni
      * @author Yaroslav Petryk
      */
@@ -57,6 +55,9 @@ public class University extends Named {
                     break;
                 case "find":
                     find();
+                    break;
+                case "display":
+                    displayStudentsByCourse();
                     break;
                 case "help":
                     System.out.println(HELP_MSG);
@@ -127,6 +128,32 @@ public class University extends Named {
     }
 
     /**
+     * Get the list of all students in university
+     * @return ArrayList of students
+     * @author Yaroslav Petryk
+     */
+    private ArrayList<Student> getStudents(){
+        ArrayList<Student> students = new ArrayList<>();
+        for (Faculty faculty: faculties){
+            students.extend(faculty.getStudents());
+        }
+        return students;
+    }
+
+    /**
+     * Get the list of all teachers in university
+     * @return ArrayList of teachers
+     * @author Yaroslav Petryk
+     */
+    private ArrayList<Teacher> getTeachers(){
+        ArrayList<Teacher> teachers = new ArrayList<>();
+        for (Faculty faculty: faculties){
+            teachers.extend(faculty.getTeachers());
+        }
+        return teachers;
+    }
+
+    /**
      * Search handler for finding students or teachers
      * @author Yaroslav Petryk
      */
@@ -144,32 +171,22 @@ public class University extends Named {
             isNumber = false;
         }
 
-        for(Faculty faculty : faculties){
-            Iterator<Cathedra> cathedraIterator = faculty.cathedraIterator();
-            while (cathedraIterator.hasNext()){
-                Cathedra cathedra = cathedraIterator.next();
-                Iterator<Student> studentIterator = cathedra.studentIterator();
-                Iterator<Teacher> teacherIterator = cathedra.teacherIterator();
-                while (studentIterator.hasNext()){
-                    Student student = studentIterator.next();
-                    if (student.name.contains(key)){
-                        foundStudents.add(student);
-                        continue;
-                    }
-                    if (isNumber && (student.getCourse() == num || student.getGroup() == num)){
-                        foundStudents.add(student);
-                    }
-                }
-                while (teacherIterator.hasNext()){
-                    Teacher teacher = teacherIterator.next();
-                    if (teacher.name.contains(key)){
-                        foundTeachers.add(teacher);
-                        continue;
-                    }
-                    if (isNumber && (teacher.getCourse() == num || teacher.getGroup() == num)){
-                        foundTeachers.add(teacher);
-                    }
-                }
+        for (Student student : getStudents()){
+            if (student.name.contains(key)){
+                foundStudents.add(student);
+                continue;
+            }
+            if (isNumber && (student.getCourse() == num || student.getGroup() == num)){
+                foundStudents.add(student);
+            }
+        }
+        for (Teacher teacher : getTeachers()){
+            if (teacher.name.contains(key)){
+                foundTeachers.add(teacher);
+                continue;
+            }
+            if (isNumber && (teacher.getCourse() == num || teacher.getGroup() == num)){
+                foundTeachers.add(teacher);
             }
         }
 
@@ -190,6 +207,29 @@ public class University extends Named {
             }
         } else {
             System.out.println("No teachers found");
+        }
+    }
+
+    /**
+     * Prints out students sorted out by course
+     * @author Yaroslav Petryk
+     */
+    private void displayStudentsByCourse(){
+        ArrayList<Student> students = getStudents();
+        if (students.isEmpty()) {
+            System.out.println("There are no students");
+            return;
+        }
+        sortByCourse(students);
+        int course = students.get(0).getCourse();
+        System.out.println(course + ":");
+        for (Student student : students){
+            if (student.getCourse() != course){
+                course = student.getCourse();
+                System.out.println(course + ":");
+            }
+            //NOTE: Should probably change thing or two about this parent.parent thing
+            System.out.println("    " + student.getName() + " faculty:" + student.parent.parent.getName());
         }
     }
 }

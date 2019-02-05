@@ -7,7 +7,7 @@ import static Utility.DataManagement.delete;
 import static Utility.DataManagement.getNames;
 
 public abstract class Named {
-    protected String name;
+    String name;
     Named parent;
 
     /**
@@ -36,10 +36,10 @@ public abstract class Named {
      * @author Yaroslav Petryk
      */
     String getPath(){
-        String path = "";
-        Named parent = this.parent;
+        String path = "> ";
+        Named parent = this;
         while (parent != null) {
-            path = path.concat(parent.name + "/");
+            path = parent.name.concat(path);
             parent = parent.parent;
         }
         path += name + "> ";

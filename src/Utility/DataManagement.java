@@ -1,6 +1,7 @@
 package Utility;
 
 import Lab.Named;
+import Lab.Student;
 
 public class DataManagement {
 
@@ -80,5 +81,14 @@ public class DataManagement {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Sorting algorithm of lists
+     * @param list list of members
+     * @author probably Andrew Rozhko
+     */
+    public static void sortByCourse(ArrayList<? extends Student> list) {
+        //TODO: Write sorting algorithm implementation
     }
 }
