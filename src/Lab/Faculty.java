@@ -31,7 +31,7 @@ public class Faculty extends Named{
         String cathedraName;
         System.out.println("To stop entering cathedras names type \"stop\"");
         while (true) {
-            cathedraName = getString("Enter the name of the cathedra № " + (tempCount + 1) + " : ");
+            cathedraName = getString("Enter the name of the cathedra № " + (cathedras.size() + 1) + " : ");
             if (cathedraName.equals("stop")) break;
             if (contains(cathedras, cathedraName)) {
                 System.out.println("Such cathedra already exists.");
