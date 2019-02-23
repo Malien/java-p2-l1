@@ -89,7 +89,7 @@ public class Faculty extends Named{
     ArrayList<Student> getStudents(){
         ArrayList<Student> students = new ArrayList<>();
         for (Cathedra cathedra : cathedras){
-            students.extend(cathedra.getStudents());
+            students.extend(cathedra.getCathedraStudents());
         }
         return students;
     }
@@ -137,7 +137,7 @@ public class Faculty extends Named{
             return -1;
         }
         System.out.println("The list of cathedras:\n" + getNames(cathedras));
-        String cathedra = getString("Which cathedra you want to enlarge? ");
+        String cathedra = getString("Choose the cathedra: ");
         int index = indexOf(cathedras, cathedra);
         if (index == -1) {
             System.out.println("There is no such a cathedra!");

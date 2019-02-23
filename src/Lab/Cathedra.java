@@ -2,24 +2,23 @@ package Lab;
 
 import Utility.ArrayList;
 
-import static Utility.DataManagement.contains;
-import static Utility.DataManagement.getNames;
+import static Utility.DataManagement.*;
 
 public class Cathedra extends Named {
 
     private static final String HELP_MSG = "Available commands:\n" +
             "Name - change the name of cathedra\n" +
             "List - show list of all staff\n" +
-            "Add staff - never guess\n" +
-            "Add students - makes students to be added)\n" +
+            "Add staff \n" +
+            "Add specialities \n" +
             "Staff - make changes to the staff\n" +
-            "Zombies - show the list of students\n" +
-            "Dig - make changes to the students\n" +
+            "Speciality E - edit a speciality\n" +
+            "Speciality D - delete a speciality\n" +
             "Help - show this message again\n" +
             "Stop - exit cathedra configuration";
 
     private ArrayList<Teacher> teachers = new ArrayList<>();
-    private ArrayList<Student> students = new ArrayList<>();
+    private ArrayList<Speciality> spec = new ArrayList<>();
 
     Cathedra(Named parent, String name) {
         this.name = name;
@@ -44,17 +43,17 @@ public class Cathedra extends Named {
                 case "add staff":
                     newTeachers();
                     break;
-                case "add students":
-                    newStudents();
+                case "add specialities":
+                    newSpeciality();
+                    break;
+                case "speciality E":
+                    editSpeciality();
+                    break;
+                case "speciality D":
+                    deleteSpeciality();
                     break;
                 case "staff":
                     changeStaff();
-                    break;
-                case "zombies":
-                    System.out.println(getNames(students));
-                    break;
-                case "dig":
-                    changeStudents();
                     break;
                 case "help":
                     System.out.println(HELP_MSG);
@@ -67,6 +66,58 @@ public class Cathedra extends Named {
             }
         }
     }
+
+
+
+    public ArrayList<Student> getCathedraStudents(){
+        ArrayList <Student> stud = new ArrayList<>();
+        for (Speciality t : spec){
+            stud.extend(t.getStudents());
+        }
+        return stud;
+    }
+
+    /**
+     * @author Rozhko Andrew
+     */
+    private void newSpeciality(){
+        if (spec.isEmpty()) System.out.println("The list of specialities is empty.");
+        else {
+            System.out.println(getNames(spec));
+        }
+
+        System.out.println("Enter \"stop\" to finish.");
+        while (true) {
+            String specName = getString("The name of a speciality is: ");
+            //makes sure there is no duplication among teachers` names
+            if (specName.equals("stop")) break;
+            else if (contains(spec, specName)) {
+                System.out.println("Such name for speciality is already used.");
+                continue;
+            }
+            spec.add(new Speciality(this, specName));
+        }
+    }
+
+
+        private void editSpeciality() {
+            int index = getSpecialityIndex();
+            if (index == -1) {
+                System.out.println("No changes are done!");
+                return;
+            }
+            spec.get(index).handleConsole();
+        }
+
+        private void deleteSpeciality(){
+            int index = getSpecialityIndex();
+            if (index == -1){
+                System.out.println("No changes are done!");
+                return;
+            }
+            spec.remove(index);
+        }
+
 
     /**
      * @author Rozhko Andrew
@@ -112,14 +163,6 @@ public class Cathedra extends Named {
         }
     }
 
-    /**
-     * Get the list of all students on cathedra
-     * @return ArrayList of students
-     * @author Yaroslav Petryk
-     */
-    ArrayList<Student> getStudents(){
-        return students;
-    }
 
     /**
      * Get the list of all teachers on cathedra
@@ -159,75 +202,18 @@ public class Cathedra extends Named {
         }
     }
 
-    /**
-     * @author Rozhko Andrew
-     */
-    public void newStudents() {
-        if (students.isEmpty()) System.out.println("The list of students is empty.");
-        else {
-            System.out.println(getNames(students));
+    private int getSpecialityIndex(){
+        if (spec.isEmpty()) {
+            System.out.println("There are no specialities in this faculty! You should have added them first.");
+            return -1;
         }
-        System.out.println("Enter \"stop\" to finish.");
-        while (true) {
-            String studentName = getString("The name of a student is: ");
-            //makes sure there is no duplication among students` names
-            if (studentName.equals("stop")) break;
-            else if (contains(students, studentName)) {
-                System.out.println("Such name for student is already used.");
-                continue;
-            }
-            students.add(new Student(this, studentName));
+        System.out.println("The list of speciality:\n" + getNames(spec));
+        String speciality = getString("Choose the speciality: ");
+        int index = indexOf(spec, speciality);
+        if (index == -1) {
+            System.out.println("There is no such a speciality!");
+            return -1;
         }
-    }
-
-    /**
-     * @author Rozhko Andrew
-     */
-    private void changeStudents() {
-        if (students.isEmpty()) {
-            System.out.println("There are no students! No body to edit.)>");
-            return;
-        }
-        System.out.println(getNames(students));
-        String whatToDo = getString("Edit or Delete?");
-        switch (whatToDo) {
-            case "Edit":
-                editStudents();
-                break;
-            case "Delete":
-                deleteFromList(students);
-                break;
-            default:
-                System.out.println("No changes are done!");
-                break;
-        }
-    }
-
-    /**
-     * @author Rozhko Andrew
-     */
-    private void editStudents() {
-        System.out.println("Enter \"stop\" to finish.");
-        label:
-        while (true) {
-            String whomToEdit = getString("Whom to change: ");
-            if (whomToEdit.equals("stop")) break;
-            for (int i = 0; i < students.size(); i++) {
-                if (students.get(i).getName().equals(whomToEdit)) {
-                    String newName = getString("Enter a new student: ");
-                    //check for duplication
-                    for (Student student : students) {
-                        if (student.getName().equals(newName)) {
-                            System.out.println("Duplicate found!");
-                            continue;
-                        }
-                        //if no duplicates found, replace the student
-                        students.set(i, new Student(this, newName));
-                        continue label;
-                    }
-                }
-            }
-            System.out.println("There is no such a teacher!");
-        }
+        return index;
     }
 }

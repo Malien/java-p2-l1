@@ -37,7 +37,7 @@ public class ArrayList<T> implements Iterable<T> {
 
     /**
      * Extend array with another array
-     * @param array that will provide data from which it should be extended
+     * @param arrayList that will provide data from which it should be extended
      */
     public void extend(ArrayList<T> arrayList){
         if (array.length < arrayList.size() + arrSize){
@@ -115,6 +115,10 @@ public class ArrayList<T> implements Iterable<T> {
         return "ArrayList{" +
                 "array=" + Arrays.toString(getArray()) +
                 '}';
+    }
+
+    public String toPlainString(){
+        return Arrays.toString(getArray());
     }
 
     /**
