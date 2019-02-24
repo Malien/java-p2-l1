@@ -145,4 +145,8 @@ public class Faculty extends Named{
         }
         return index;
     }
+
+    public ArrayList<Cathedra> getCathedras(){
+        return cathedras;
+    }
 }

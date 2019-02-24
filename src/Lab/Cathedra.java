@@ -122,7 +122,7 @@ public class Cathedra extends Named {
     /**
      * @author Rozhko Andrew
      */
-    public void newTeachers() {
+    private void newTeachers() {
         if (teachers.isEmpty()) System.out.println("The list of teachers is empty.");
         else {
             System.out.println(getNames(teachers));
@@ -143,7 +143,7 @@ public class Cathedra extends Named {
     /**
      * @author Rozhko Andrew
      */
-    public void changeStaff() {
+    private void changeStaff() {
         if (teachers.isEmpty()) {
             System.out.println("There are no teachers! No body to edit.)>");
             return;
@@ -215,5 +215,9 @@ public class Cathedra extends Named {
             return -1;
         }
         return index;
+    }
+
+    public ArrayList<Speciality> getSpecialities(){
+        return spec;
     }
 }

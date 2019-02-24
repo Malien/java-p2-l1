@@ -1,9 +1,6 @@
 package Lab;
 
 import Utility.ArrayList;
-
-import java.util.Arrays;
-
 import static Utility.DataManagement.contains;
 import static Utility.DataManagement.getNames;
 
@@ -27,8 +24,9 @@ public class Speciality extends Named {
 
 
     public void handleConsole(){
-        String ans = getString(HELP_MSG);
+        System.out.println(HELP_MSG);
         label :while(true) {
+            String ans = getString();
             switch (ans.toLowerCase()) {
                 case ("name"):
                     rename();
@@ -60,7 +58,7 @@ public class Speciality extends Named {
     /**
      * @author Rozhko Andrew
      */
-    public void newStudents() {
+    private void newStudents() {
         if (students.isEmpty()) System.out.println("The list of students is empty.");
         else {
             System.out.println(getNames(students));

@@ -19,7 +19,7 @@ public final class DataInput {
 		return value;
 	}
 	
-	public static char getChar() throws IOException{
+	public static char getChar(){
 		String s = getString();
 		return s.charAt(0);
 	}
@@ -27,13 +27,9 @@ public final class DataInput {
 	//getInt with handled FormatException
 	public static Integer getInt(String wr){
 		writeText(wr);
-		String s = "";
+		String s;
 		while (true){
-			try {
 				s = getString();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			Integer value;
 			try {
 				value = Integer.valueOf(s);
@@ -45,10 +41,15 @@ public final class DataInput {
 		}
 	}
 	
-	public static String getString() throws IOException{
+	public static String getString() {
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
-		String s = br.readLine();
+		String s;
+		try {
+			s = br.readLine();
+		}catch(IOException e){
+			return "Bad input";
+		}
 		return s;
 	}
 

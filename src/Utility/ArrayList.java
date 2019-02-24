@@ -14,7 +14,7 @@ public class ArrayList<T> implements Iterable<T> {
     private static final double MULTIPLIER = 1.5;
 
     private T[] array = (T[]) new Object[INITIAL_SIZE];
-    int arrSize = 0;
+    private int arrSize = 0;
 
     /**
      * Get the size of array
@@ -119,6 +119,29 @@ public class ArrayList<T> implements Iterable<T> {
 
     public String toPlainString(){
         return Arrays.toString(getArray());
+    }
+
+    /**
+     * implementation of sublist
+     * @param from
+     * @param to
+     * @return
+     * @author Rozhko Andrew
+     */
+    public ArrayList subList(int from, int to){
+        ArrayList res = new ArrayList();
+        for (int i = from; i < to; i++){
+            res.add(this.get(i));
+        }
+        return res;
+    }
+
+    public ArrayList addAll(ArrayList list){
+        ArrayList res = this;
+        for (Object t : list){
+            res.add(t);
+        }
+        return res;
     }
 
     /**

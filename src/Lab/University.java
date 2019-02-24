@@ -54,7 +54,7 @@ public class University extends Named {
                     System.out.println(getNames(faculties));
                     break;
                 case "find":
-                    find();
+                 //   find();!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     break;
                 case "display":
                     displayStudentsByCourse();
@@ -152,12 +152,12 @@ public class University extends Named {
         }
         return teachers;
     }
-
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     /**
      * Search handler for finding students or teachers
      * @author Yaroslav Petryk
      */
-    private void find() {
+  /*  private void find() {
         ArrayList<Student> foundStudents = new ArrayList<>();
         ArrayList<Teacher> foundTeachers = new ArrayList<>();
 
@@ -209,6 +209,7 @@ public class University extends Named {
             System.out.println("No teachers found");
         }
     }
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
     /**
      * Prints out students sorted out by course
@@ -231,5 +232,9 @@ public class University extends Named {
             //NOTE: Should probably change thing or two about this parent.parent thing
             System.out.println("    " + student.getName() + " faculty:" + student.parent.parent.getName());
         }
+    }
+
+    public ArrayList<Faculty> getFaculties(){
+        return faculties;
     }
 }
