@@ -13,7 +13,7 @@ public class Faculty extends Named{
             "Add     - add cathedras to faculty\n" +
             "Edit    - edit cathedras on faculty\n" +
             "Delete  - delete cathedra on faculty\n" +
-            "Display - display all students/teaacters on faculty in alphabetical order" +
+            "Display - display all students/teaacters on faculty in alphabetical order\n" +
             "List    - show list of all cathedras on faculty\n" +
             "Stop    - exit current menu\n" +
             "Help    - show this message again";
@@ -71,7 +71,7 @@ public class Faculty extends Named{
                     deleteCathedra();
                     break;
                 case "display":
-                    displayAlphabetic();
+                    displayAlphabetic(getStudents(), getTeachers());
                     break;
                 case "list":
                     System.out.println(getNames(cathedras));
@@ -157,30 +157,6 @@ public class Faculty extends Named{
             return -1;
         }
         return index;
-    }
-
-    private void displayAlphabetic(){
-        ArrayList<Student> students = getStudents();
-        ArrayList<Teacher> teachers = getTeachers();
-
-        if (!students.isEmpty()) {
-            System.out.println("Students:");
-            students.sort(Student.nameComparator);
-            for (Student student : students) {
-                System.out.println("    " + student);
-            }
-        } else {
-            System.out.println("No students present");
-        }
-        if (!teachers.isEmpty()) {
-            System.out.println("Teachers:");
-            teachers.sort(Teacher.nameComparator);
-            for (Teacher teacher : teachers) {
-                System.out.println("    " + teacher);
-            }
-        } else {
-            System.out.println("No teachers present");
-        }
     }
 
     public ArrayList<Cathedra> getCathedras(){

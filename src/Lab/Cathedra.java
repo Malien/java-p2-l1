@@ -13,8 +13,11 @@ public class Cathedra extends Named {
             "Add staff \n" +
             "Add specialities \n" +
             "Staff - make changes to the staff\n" +
-            "Speciality E - edit a speciality\n" +
-            "Speciality D - delete a speciality\n" +
+            "Edit - edit a speciality\n" +
+            "Delete - delete a speciality\n" +
+            "Display - display students and teachers of cathedra in alphabetic order\n" +
+            "Display c - display students grouped by course\n" +
+            "Display at - display students of specified course in alphabetic order\n" +
             "Help - show this message again\n" +
             "Stop - exit cathedra configuration";
 
@@ -49,14 +52,23 @@ public class Cathedra extends Named {
                 case "add specialities":
                     newSpeciality();
                     break;
-                case "speciality e":
+                case "edit":
                     editSpeciality();
                     break;
-                case "speciality d":
+                case "delete":
                     deleteSpeciality();
                     break;
                 case "staff":
                     changeStaff();
+                    break;
+                case "display":
+                    displayAlphabetic(getStudents(), getTeachers());
+                    break;
+                case "display c":
+                    displayByCourse(getStudents());
+                    break;
+                case "display at":
+                    displayCourse();
                     break;
                 case "help":
                     System.out.println(HELP_MSG);
@@ -230,6 +242,20 @@ public class Cathedra extends Named {
             return -1;
         }
         return index;
+    }
+
+    private void displayCourse(){
+        int index = getInt("Enter course to be shown");
+        ArrayList<Student> found = new ArrayList<>();
+        for (Student student : getStudents()){
+            if (student.getCourse() == index){
+                found.add(student);
+            }
+        }
+        found.sort(Student.nameComparator);
+        for (Student student : found){
+            System.out.println(student);
+        }
     }
 
     public ArrayList<Speciality> getSpecialities(){

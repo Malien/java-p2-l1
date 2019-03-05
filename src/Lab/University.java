@@ -56,7 +56,7 @@ public class University extends Named {
                     find();
                     break;
                 case "display":
-                    displayStudentsByCourse();
+                    displayByCourse(getStudents());
                     break;
                 case "help":
                     System.out.println(HELP_MSG);
@@ -214,28 +214,6 @@ public class University extends Named {
             }
         } else {
             System.out.println("No teachers found");
-        }
-    }
-
-    /**
-     * Prints out students sorted out by course
-     * @author Yaroslav Petryk
-     */
-    private void displayStudentsByCourse(){
-        ArrayList<Student> students = getStudents();
-        if (students.isEmpty()) {
-            System.out.println("There are no students");
-            return;
-        }
-        students.sort(Student.courseComparator);
-        int course = students.get(0).getCourse();
-        System.out.println(course + ":");
-        for (Student student : students){
-            if (student.getCourse() != course){
-                course = student.getCourse();
-                System.out.println(course + ":");
-            }
-            System.out.println("    " + student);
         }
     }
 
