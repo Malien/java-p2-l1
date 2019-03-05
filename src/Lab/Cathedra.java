@@ -7,15 +7,16 @@ import static Utility.DataManagement.*;
 public class Cathedra extends Named {
 
     private static final String HELP_MSG = "Available commands:\n" +
-            "Name   - change the name of cathedra\n" +
-            "List   - show list of all staff\n" +
+            "Name - change the name of cathedra\n" +
+            "List - show list of all staff\n" +
+            "List S - show specialities\n"+
             "Add staff \n" +
             "Add specialities \n" +
-            "Staff  - make changes to the staff\n" +
-            "Edit   - edit a speciality\n" +
-            "Delete - delete a speciality\n" +
-            "Help   - show this message again\n" +
-            "Stop   - exit cathedra configuration";
+            "Staff - make changes to the staff\n" +
+            "Speciality E - edit a speciality\n" +
+            "Speciality D - delete a speciality\n" +
+            "Help - show this message again\n" +
+            "Stop - exit cathedra configuration";
 
     private ArrayList<Teacher> teachers = new ArrayList<>();
     private ArrayList<Speciality> spec = new ArrayList<>();
@@ -23,6 +24,9 @@ public class Cathedra extends Named {
     Cathedra(Named parent, String name) {
         this.name = name;
         this.parent = parent;
+        newSpeciality();
+        newTeachers();
+
     }
 
     /**
@@ -40,6 +44,8 @@ public class Cathedra extends Named {
                 case "list":
                     System.out.println(getNames(teachers));
                     break;
+                case "list s":
+                    System.out.println(getSpecialities());
                 case "add staff":
                     newTeachers();
                     break;
@@ -94,7 +100,7 @@ public class Cathedra extends Named {
             System.out.println(getNames(spec));
         }
 
-        System.out.println("Enter \"stop\" to finish.");
+        System.out.println("Add specialities. Enter \"stop\" to finish.");
         while (true) {
             String specName = getString("The name of a speciality is: ");
             //makes sure there is no duplication among teachers` names
@@ -139,7 +145,7 @@ public class Cathedra extends Named {
         else {
             System.out.println(getNames(teachers));
         }
-        System.out.println("Enter \"stop\" to finish.");
+        System.out.println("Add new teachers. Enter \"stop\" to finish.");
         while (true) {
             String teacherName = getString("The name of a teacher is: ");
             //makes sure there is no duplication among teachers` names
@@ -231,5 +237,9 @@ public class Cathedra extends Named {
 
     public ArrayList<Speciality> getSpecialities(){
         return spec;
+    }
+    @Override
+    public String toString(){
+        return this.name;
     }
 }

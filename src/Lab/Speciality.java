@@ -20,6 +20,7 @@ public class Speciality extends Named {
     Speciality(Named parent, String name){
         this.name = name;
         this.parent = parent;
+        newStudents();
     }
 
     public void handleConsole(){
@@ -31,7 +32,7 @@ public class Speciality extends Named {
                     changeName();
                     break;
                 case ("list"):
-                    System.out.println(students.toPlainString());
+                    System.out.println(students);
                     break;
                 case ("add"):
                     newStudents();
@@ -62,7 +63,7 @@ public class Speciality extends Named {
         else {
             System.out.println(getNames(students));
         }
-        System.out.println("Enter \"stop\" to finish.");
+        System.out.println("Add students. Enter \"stop\" to finish.");
         while (true) {
             String studentName = getString("The name of a student is: ");
             //makes sure there is no duplication among students` names
@@ -132,5 +133,10 @@ public class Speciality extends Named {
 
     public ArrayList<Student> getStudents() {
         return students;
+    }
+
+    @Override
+    public String toString(){
+        return this.name;
     }
 }
