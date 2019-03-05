@@ -192,9 +192,9 @@ return type <T extends Named> T !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             }
         }
         if (m == arl_0.size())
-            res.addAll(arl_1.subList(n, arl_1.size()));
+            res.extend(arl_1.subList(n, arl_1.size()));
         else
-            res.addAll(arl_0.subList(m, arl_0.size()));
+            res.extend(arl_0.subList(m, arl_0.size()));
         return res;
     }
 

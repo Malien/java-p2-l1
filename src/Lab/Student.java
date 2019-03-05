@@ -1,6 +1,21 @@
 package Lab;
 
+import java.util.Comparator;
+
 public class Student extends Named {
+    public static final Comparator<Student> courseComparator = new Comparator<Student>() {
+        @Override
+        public int compare(Student o1, Student o2) {
+            return o1.course - o2.course;
+        }
+    };
+    public static final Comparator<Student> nameComparator = new Comparator<Student>() {
+        @Override
+        public int compare(Student o1, Student o2) {
+            return o1.name.compareToIgnoreCase(o2.name);
+        }
+    };
+
     private int group;
     private int course;
 
@@ -32,5 +47,13 @@ public class Student extends Named {
 
     public void setCourse(int course) {
         this.course = course;
+    }
+
+    @Override
+    public String toString() {
+        return name +
+                ", group:" + group +
+                ", course:" + course +
+                ", speciality:" + parent;
     }
 }

@@ -9,18 +9,18 @@ public class Faculty extends Named{
     private ArrayList<Cathedra> cathedras = new ArrayList<>();
 
     private final static String HELP_MSG = "Available commands:\n" +
-            "Name   - change name of the faculty\n" +
-            "Add    - add cathedras to faculty\n" +
-            "Edit   - edit cathedras on faculty\n" +
-            "Delete - delete cathedra on faculty\n" +
-            "List   - show list of all cathedras on faculty\n" +
-            "Stop   - exit current menu\n" +
-            "Help   - show this message again";
+            "Name    - change name of the faculty\n" +
+            "Add     - add cathedras to faculty\n" +
+            "Edit    - edit cathedras on faculty\n" +
+            "Delete  - delete cathedra on faculty\n" +
+            "Display - display all students/teaacters on faculty in alphabetical order" +
+            "List    - show list of all cathedras on faculty\n" +
+            "Stop    - exit current menu\n" +
+            "Help    - show this message again";
 
     public Faculty(Named parent, String name) {
         this.parent = parent;
         this.name = name;
-        addCathedras();
     }
 
     /**
@@ -69,6 +69,9 @@ public class Faculty extends Named{
                     break;
                 case "delete":
                     deleteCathedra();
+                    break;
+                case "display":
+                    displayAlphabetic();
                     break;
                 case "list":
                     System.out.println(getNames(cathedras));
@@ -156,11 +159,32 @@ public class Faculty extends Named{
         return index;
     }
 
+    private void displayAlphabetic(){
+        ArrayList<Student> students = getStudents();
+        ArrayList<Teacher> teachers = getTeachers();
+
+        if (!students.isEmpty()) {
+            System.out.println("Students:");
+            students.sort(Student.nameComparator);
+            for (Student student : students) {
+                System.out.println("    " + student);
+            }
+        } else {
+            System.out.println("No students present");
+        }
+        if (!teachers.isEmpty()) {
+            System.out.println("Teachers:");
+            teachers.sort(Teacher.nameComparator);
+            for (Teacher teacher : teachers) {
+                System.out.println("    " + teacher);
+            }
+        } else {
+            System.out.println("No teachers present");
+        }
+    }
+
     public ArrayList<Cathedra> getCathedras(){
         return cathedras;
-    }
-    public void setCathedras(ArrayList<Cathedra> arlica){
-        cathedras.addAll(arlica);
     }
     @Override
     public String toString(){

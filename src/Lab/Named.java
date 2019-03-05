@@ -7,6 +7,7 @@ import static Utility.DataManagement.delete;
 import static Utility.DataManagement.getNames;
 
 public abstract class Named {
+
     String name;
     Named parent;
 

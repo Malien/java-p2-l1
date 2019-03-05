@@ -24,9 +24,6 @@ public class Cathedra extends Named {
     Cathedra(Named parent, String name) {
         this.name = name;
         this.parent = parent;
-        newSpeciality();
-        newTeachers();
-
     }
 
     /**

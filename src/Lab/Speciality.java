@@ -20,7 +20,6 @@ public class Speciality extends Named {
     Speciality(Named parent, String name){
         this.name = name;
         this.parent = parent;
-        newStudents();
     }
 
     public void handleConsole(){

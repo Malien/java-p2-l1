@@ -27,7 +27,6 @@ public class University extends Named {
     public University(String name) {
         this.name = name;
         System.out.println("Initial configuration of university. Please enter the faculties first.");
-        addFaculties();
     }
 
     /**
@@ -203,8 +202,7 @@ public class University extends Named {
         if (!foundStudents.isEmpty()){
             System.out.println("Students:");
             for (Student student : foundStudents){
-                System.out.println("    " + student.getName() + " course:" + student.getCourse() +
-                        " group:" + student.getGroup());
+                System.out.println("    " + student);
             }
         } else {
             System.out.println("No students found");
@@ -229,7 +227,7 @@ public class University extends Named {
             System.out.println("There are no students");
             return;
         }
-        sortByCourse(students);
+        students.sort(Student.courseComparator);
         int course = students.get(0).getCourse();
         System.out.println(course + ":");
         for (Student student : students){
@@ -237,15 +235,11 @@ public class University extends Named {
                 course = student.getCourse();
                 System.out.println(course + ":");
             }
-            //NOTE: Should probably change thing or two about this parent.parent thing
-            System.out.println("    " + student.getName() + " faculty:" + student.parent.parent.getName());
+            System.out.println("    " + student);
         }
     }
 
     public ArrayList<Faculty> getFaculties(){
         return faculties;
-    }
-    public void setFaculties (ArrayList<Faculty> arlifa){
-        faculties.addAll(arlifa);
     }
 }

@@ -1,6 +1,7 @@
 package Utility;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Iterator;
 
 /**
@@ -118,10 +119,10 @@ public class ArrayList<T> implements Iterable<T> {
     }
 
     /**
-     * implementation of sublist
-     * @param from
-     * @param to
-     * @return
+     * Retruns a sub-list from a specified range
+     * @param from starting index from which new list should start
+     * @param to ending index at which new list should end
+     * @return new list with elements withing index range
      * @author Rozhko Andrew
      */
     public ArrayList subList(int from, int to){
@@ -133,21 +134,8 @@ public class ArrayList<T> implements Iterable<T> {
     }
 
     /**
-     * @param list
-     * @return
-     * @author Rozhko Andrew
-     */
-    public ArrayList addAll(ArrayList list){
-        ArrayList res = this;
-        for (Object t : list){
-            res.add(t);
-        }
-        return res;
-    }
-
-    /**
-     * @param element
-     * @return
+     * @param element which should be found
+     * @return index of searched element or -1 in case elements is not inside the list
      * @author Rozhko Andrew
      */
     public int indexOf(T element){
@@ -155,6 +143,36 @@ public class ArrayList<T> implements Iterable<T> {
             if (this.get(i).equals(element)) return i;
         }
         return -1;
+    }
+
+    public void sort(Comparator<T> comparator){
+        quicksort(comparator, 0, size()-1);
+    }
+
+    private void quicksort(Comparator<T> comparator, int low, int high){
+        if (low < high) {
+            int p = partition(comparator, low, high);
+            quicksort(comparator, low, p-1);
+            quicksort(comparator, p+1, high);
+        }
+    }
+
+    private int partition(Comparator<T> comparator, int low, int high){
+        T pivot = get(high);
+        T tmp;
+        int i = low -1;
+        for (int j = low; j<high; j++){
+            if (comparator.compare(get(j), pivot) <= 0){
+                i+=1;
+                tmp = get(j);
+                set(j, get(i));
+                set(i, tmp);
+            }
+        }
+        tmp = get(i+1);
+        set(i+1, get(high));
+        set(high, tmp);
+        return i+1;
     }
 
     /**
