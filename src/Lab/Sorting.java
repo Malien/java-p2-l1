@@ -16,7 +16,7 @@ public class Sorting {
 
     private static final String HELP_MSG =
             "FA (Faculty alphabet) - show all students/teachers sorted in alphabetical order.\n" +
-            "SC (Students course) - students sorted according to course.\n" +
+            "SCS (Students course sort) - students sorted according to course.\n" +
             "SCA (Student cathedra alphabet) - show all students of a particular cathedra sorted in alphabet order.\n" +
             "SCC (Student cathedra course) - show the students of a particular cathedra and course" +
             "SCCA (Student cathedra course alphabet)" +
@@ -31,8 +31,8 @@ public class Sorting {
                 case ("fa"):
                     faSort();
                     break;
-                case ("sc"):
-                    scSort();
+                case ("scs"):
+                    scsSort();
                     break;
                 case ("sca"):
                     scaSort();
@@ -62,18 +62,57 @@ public class Sorting {
     private void sccSort() {
     }
 
-    private void scSort() {
+    private void scsSort() {
+        Object element = root.getFaculties();
+
+        System.out.println(element);
+        String ans = getString("Choose the faculty: (task 7)");
+        try {
+             element = ((Faculty)getNextLevel((ArrayList<? extends Named>)element, ans)).getCathedras();
+        }catch (Exception e){
+            System.out.println("No such a faculty.");
+            return;
+        }
+
+        System.out.println(element);
+        ans = getString("Choose the cathedra: (task 7)");
+        try{
+          element = ((Cathedra)getNextLevel((ArrayList<? extends Named>)element, ans)). getSpecialities();
+        }catch(Exception e){
+            System.out.println("No such a cathedra.");
+            return;
+        }
+
+        ArrayList <Student> chosenStudents = new ArrayList();
+        for (Speciality t : ((ArrayList<Speciality> )element)){
+            for (Student s : t.getStudents()){
+                chosenStudents.add(s);
+            }
+        }
+        System.out.println(chosenStudents);
+
     }
+
+    private <T extends Named> T getNextLevel(ArrayList<T> element, String ans) throws Exception{
+        for (int i = 0; i < element.size(); i++){
+            if (element.get(i).getName().equals(ans)) return element.get(i);
+        }
+        throw new Exception();
+    }
+/*
+return type <T extends Named> T !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ */
+
 
     /**
      * fcS = from Faculty to Cathedra while processing Students
      * sorts students and teachers of a particular faculty
      */
     private void faSort () {
-        System.out.println(root.getFaculties().toPlainString());
+        System.out.println(root.getFaculties());
         Faculty f;
         while (true) {
-            int index = getInt("Choose the number of the faculty: ");
+            int index = getInt("Choose the number of the faculty: ") + 1;
             try {
                  f = root.getFaculties().get(index);
                 break;

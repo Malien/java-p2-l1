@@ -237,4 +237,7 @@ public class University extends Named {
     public ArrayList<Faculty> getFaculties(){
         return faculties;
     }
+    public void setFaculties (ArrayList<Faculty> arlifa){
+        faculties.addAll(arlifa);
+    }
 }

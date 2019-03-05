@@ -17,7 +17,7 @@ public class Faculty extends Named{
             "Stop   - exit current menu\n" +
             "Help   - show this message again";
 
-    Faculty(Named parent, String name) {
+    public Faculty(Named parent, String name) {
         this.parent = parent;
         this.name = name;
         addCathedra();
@@ -148,5 +148,12 @@ public class Faculty extends Named{
 
     public ArrayList<Cathedra> getCathedras(){
         return cathedras;
+    }
+    public void setCathedras(ArrayList<Cathedra> arlica){
+        cathedras.addAll(arlica);
+    }
+    @Override
+    public String toString(){
+        return this.name;
     }
 }

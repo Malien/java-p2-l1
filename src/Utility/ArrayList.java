@@ -117,10 +117,6 @@ public class ArrayList<T> implements Iterable<T> {
                 '}';
     }
 
-    public String toPlainString(){
-        return Arrays.toString(getArray());
-    }
-
     /**
      * implementation of sublist
      * @param from
@@ -136,12 +132,29 @@ public class ArrayList<T> implements Iterable<T> {
         return res;
     }
 
+    /**
+     * @param list
+     * @return
+     * @author Rozhko Andrew
+     */
     public ArrayList addAll(ArrayList list){
         ArrayList res = this;
         for (Object t : list){
             res.add(t);
         }
         return res;
+    }
+
+    /**
+     * @param element
+     * @return
+     * @author Rozhko Andrew
+     */
+    public int indexOf(T element){
+        for (int i = 0; i < this.size(); i++){
+            if (this.get(i).equals(element)) return i;
+        }
+        return -1;
     }
 
     /**
