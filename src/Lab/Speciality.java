@@ -17,11 +17,20 @@ public class Speciality extends Named {
 
     private ArrayList <Student> students = new ArrayList<>();
 
+    /**
+     * Constructor for speciality
+     * @param parent parent object of speciality (cathedra)
+     * @param name name of the speciality
+     */
     Speciality(Named parent, String name){
         this.name = name;
         this.parent = parent;
     }
 
+    /**
+     * Console handler for speciality
+     * @author Rozhko Andrew, Yaroslav Petryk
+     */
     public void handleConsole(){
         System.out.println(HELP_MSG);
         label :while(true) {
@@ -50,11 +59,18 @@ public class Speciality extends Named {
 
     }
 
+    /**
+     * Add new student to a speciality
+     * @param studentName name of the student
+     * @param course student's course
+     * @param group student's group
+     */
     public void addStudent(String studentName, int course, int group){
         students.add(new Student(this, studentName, course, group));
     }
 
     /**
+     * Handle addition of students through console
      * @author Rozhko Andrew
      */
     private void newStudents() {
@@ -80,6 +96,7 @@ public class Speciality extends Named {
     }
 
     /**
+     * Handle change of students through console
      * @author Rozhko Andrew
      */
     private void changeStudents() {
@@ -103,6 +120,7 @@ public class Speciality extends Named {
     }
 
     /**
+     * Handle edition of students through console
      * @author Rozhko Andrew
      */
     private void editStudents() {
@@ -130,7 +148,11 @@ public class Speciality extends Named {
         }
     }
 
-    public ArrayList<Student> getStudents() {
+    /**
+     * Get students of speciality
+     * @return list of students
+     */
+    public ArrayList<Student> getStudents(){
         return students;
     }
 

@@ -1,4 +1,7 @@
-import Lab.*;
+import Lab.Cathedra;
+import Lab.Faculty;
+import Lab.Speciality;
+import Lab.University;
 
 public class Main {
     public static void main(String[] args){
@@ -93,7 +96,5 @@ public class Main {
         RG.addStudent("Draga Leshchenko", 1, 4);
 
         university.handleConsole();
-        Sorting sort = new Sorting(university);
-        sort.handleConsole();
     }
 }

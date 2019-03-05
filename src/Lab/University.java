@@ -21,7 +21,7 @@ public class University extends Named {
 
     /**
      * constructor for university
-     * @param name the name of uni
+     * @param name the name of university
      * @author Yaroslav Petryk
      */
     public University(String name) {
@@ -70,6 +70,12 @@ public class University extends Named {
         }
     }
 
+    /**
+     * Add faculty to university
+     * @param facultyName name of the new faculty
+     * @return newly created faculty
+     * @author Yaroslav Petryk
+     */
     public Faculty addFaculty(String facultyName){
         Faculty fac = new Faculty(this, facultyName);
         faculties.add(fac);
@@ -77,6 +83,7 @@ public class University extends Named {
     }
 
     /**
+     * Handle addition of multiple faculties through console
      * @author Rozhko Andrew
      */
     private void addFaculties() {
@@ -100,6 +107,7 @@ public class University extends Named {
     }
 
     /**
+     * Handle deletion of faculties through console
      * @author Rozhko Andrew
      */
     private void deleteFaculty() {
@@ -118,6 +126,7 @@ public class University extends Named {
     }
 
     /**
+     * Handle editing of faculties through console
      * @author Rozhko Andrew
      */
     private void editFaculty() {
@@ -215,9 +224,5 @@ public class University extends Named {
         } else {
             System.out.println("No teachers found");
         }
-    }
-
-    public ArrayList<Faculty> getFaculties(){
-        return faculties;
     }
 }

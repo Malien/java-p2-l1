@@ -7,23 +7,28 @@ import static Utility.DataManagement.*;
 public class Cathedra extends Named {
 
     private static final String HELP_MSG = "Available commands:\n" +
-            "Name - change the name of cathedra\n" +
-            "List - show list of all staff\n" +
-            "List S - show specialities\n"+
+            "Name       - change the name of cathedra\n" +
+            "List       - show list of all staff\n" +
+            "List S     - show specialities\n"+
             "Add staff \n" +
             "Add specialities \n" +
-            "Staff - make changes to the staff\n" +
-            "Edit - edit a speciality\n" +
-            "Delete - delete a speciality\n" +
-            "Display - display students and teachers of cathedra in alphabetic order\n" +
-            "Display c - display students grouped by course\n" +
+            "Staff      - make changes to the staff\n" +
+            "Edit       - edit a speciality\n" +
+            "Delete     - delete a speciality\n" +
+            "Display    - display students and teachers of cathedra in alphabetic order\n" +
+            "Display c  - display students grouped by course\n" +
             "Display at - display students of specified course in alphabetic order\n" +
-            "Help - show this message again\n" +
-            "Stop - exit cathedra configuration";
+            "Help       - show this message again\n" +
+            "Stop       - exit cathedra configuration";
 
     private ArrayList<Teacher> teachers = new ArrayList<>();
     private ArrayList<Speciality> spec = new ArrayList<>();
 
+    /**
+     * Constructor for Cathedra
+     * @param parent parent object of the cathedra (faculty)
+     * @param name name of the cathedra
+     */
     Cathedra(Named parent, String name) {
         this.name = name;
         this.parent = parent;
@@ -45,7 +50,7 @@ public class Cathedra extends Named {
                     System.out.println(getNames(teachers));
                     break;
                 case "list s":
-                    System.out.println(getSpecialities());
+                    System.out.println(getNames(spec));
                 case "add staff":
                     newTeachers();
                     break;
@@ -82,16 +87,32 @@ public class Cathedra extends Named {
         }
     }
 
+    /**
+     * Add teacher to a cathedra
+     * @param teacherName name of the teacher
+     * @author Yaroslav Petryk
+     */
     public void addTeacher(String teacherName){
         teachers.add(new Teacher(this, teacherName));
     }
 
+    /**
+     * Add speciality to a cathedra
+     * @param specName name of the speciality
+     * @return newly created speciality
+     * @author Yaroslav Petryk
+     */
     public Speciality addSpec(String specName){
         Speciality speciality = new Speciality(this, specName);
         spec.add(speciality);
         return speciality;
     }
 
+    /**
+     * Get students of cathedra
+     * @return students
+     * @author Rozhko Andrew
+     */
     public ArrayList<Student> getStudents(){
         ArrayList <Student> stud = new ArrayList<>();
         for (Speciality t : spec){
@@ -101,6 +122,7 @@ public class Cathedra extends Named {
     }
 
     /**
+     * Handle addition of speciality through console
      * @author Rozhko Andrew
      */
     private void newSpeciality(){
@@ -126,27 +148,34 @@ public class Cathedra extends Named {
         }
     }
 
-
-        private void editSpeciality() {
-            int index = getSpecialityIndex();
-            if (index == -1) {
-                System.out.println("No changes are done!");
-                return;
-            }
-            spec.get(index).handleConsole();
+    /**
+     * Handle editing specialities through console
+     * @author Rozhko Andrew
+     */
+    private void editSpeciality() {
+        int index = getSpecialityIndex();
+        if (index == -1) {
+            System.out.println("No changes are done!");
+            return;
         }
-
-        private void deleteSpeciality(){
-            int index = getSpecialityIndex();
-            if (index == -1){
-                System.out.println("No changes are done!");
-                return;
-            }
-            spec.remove(index);
-        }
-
+        spec.get(index).handleConsole();
+    }
 
     /**
+     * Handle deletion of specialities through console
+     * @author Rozhko Andrew
+     */
+    private void deleteSpeciality(){
+        int index = getSpecialityIndex();
+        if (index == -1){
+            System.out.println("No changes are done!");
+            return;
+        }
+        spec.remove(index);
+    }
+
+    /**
+     * Handle addition of teachers through console
      * @author Rozhko Andrew
      */
     private void newTeachers() {
@@ -168,6 +197,7 @@ public class Cathedra extends Named {
     }
 
     /**
+     * Handle edition of teachers through console
      * @author Rozhko Andrew
      */
     private void changeStaff() {
@@ -201,6 +231,7 @@ public class Cathedra extends Named {
     }
 
     /**
+     * Handle edition of teachers through console
      * @author Rozhko Andrew
      */
     private void editStaff() {
@@ -229,6 +260,11 @@ public class Cathedra extends Named {
         }
     }
 
+    /**
+     * Ask user for speciality to be operated upon
+     * @return index of speciality
+     * @author Rozhko Andrew
+     */
     private int getSpecialityIndex(){
         if (spec.isEmpty()) {
             System.out.println("There are no specialities in this faculty! You should have added them first.");
@@ -244,6 +280,10 @@ public class Cathedra extends Named {
         return index;
     }
 
+    /**
+     * Display students of cathedra grouped by course
+     * @author Yaroslav Petryk
+     */
     private void displayCourse(){
         int index = getInt("Enter course to be shown");
         ArrayList<Student> found = new ArrayList<>();
@@ -258,9 +298,6 @@ public class Cathedra extends Named {
         }
     }
 
-    public ArrayList<Speciality> getSpecialities(){
-        return spec;
-    }
     @Override
     public String toString(){
         return this.name;

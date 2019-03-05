@@ -36,7 +36,7 @@ public abstract class Named {
      * @return string of a path
      * @author Yaroslav Petryk
      */
-    String getPath(){
+    private String getPath(){
         String path = "";
         Named parent = this;
         while (parent != null) {
@@ -63,7 +63,7 @@ public abstract class Named {
      * @return integer form console
      * @author Yaroslav Petryk
      */
-    int getInt(){
+    private int getInt(){
         return DataInput.getInt(getPath());
     }
 

@@ -18,12 +18,18 @@ public class Faculty extends Named{
             "Stop    - exit current menu\n" +
             "Help    - show this message again";
 
+    /**
+     * Constructor for Faculty
+     * @param parent parent object of faculty (university)
+     * @param name name of the faculty
+     */
     public Faculty(Named parent, String name) {
         this.parent = parent;
         this.name = name;
     }
 
     /**
+     * Handle addition of cathedras through console
      * @author Rozhko Andrew
      */
     private void addCathedras() {
@@ -88,6 +94,11 @@ public class Faculty extends Named{
         }
     }
 
+    /**
+     * Add cathedra to a faculty
+     * @param cathedraName name of cathedra
+     * @return newly created cathedra
+     */
     public Cathedra addCathedra(String cathedraName){
         Cathedra cathedra = new Cathedra(this, cathedraName);
         cathedras.add(cathedra);
@@ -121,6 +132,7 @@ public class Faculty extends Named{
     }
 
     /**
+     * Handle editing cathedras through console
      * @author Rozhko Andrew
      */
     private void editCathedra() {
@@ -130,6 +142,7 @@ public class Faculty extends Named{
     }
 
     /**
+     * Handle deletion of cathedras through console
      * @author Rozhko Andrew
      */
     private void deleteCathedra() {
@@ -140,7 +153,7 @@ public class Faculty extends Named{
     }
 
     /**
-     * reduces the duplication of code
+     * Ask user to specify cathedra to be operated upon
      * @author Rozhko Andrew
      * @return index of the person in the list
      */
@@ -159,9 +172,6 @@ public class Faculty extends Named{
         return index;
     }
 
-    public ArrayList<Cathedra> getCathedras(){
-        return cathedras;
-    }
     @Override
     public String toString(){
         return this.name;

@@ -145,6 +145,10 @@ public class ArrayList<T> implements Iterable<T> {
         return -1;
     }
 
+    /**
+     * Sort list using quicksort algorithm
+     * @param comparator comporator for elements in the list
+     */
     public void sort(Comparator<T> comparator){
         quicksort(comparator, 0, size()-1);
     }
