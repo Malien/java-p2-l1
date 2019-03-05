@@ -26,7 +26,6 @@ public class University extends Named {
      */
     public University(String name) {
         this.name = name;
-        System.out.println("Initial configuration of university. Please enter the faculties first.");
     }
 
     /**

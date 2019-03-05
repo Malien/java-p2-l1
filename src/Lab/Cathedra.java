@@ -8,10 +8,9 @@ public class Cathedra extends Named {
 
     private static final String HELP_MSG = "Available commands:\n" +
             "Name       - change the name of cathedra\n" +
-            "List       - show list of all staff\n" +
-            "List S     - show specialities\n"+
-            "Add staff \n" +
-            "Add specialities \n" +
+            "List       - show list of all staff and specialities\n" +
+            "Add staff  - add new teachers to faculty\n" +
+            "Add spec   - add new specialities to faculty \n" +
             "Staff      - make changes to the staff\n" +
             "Edit       - edit a speciality\n" +
             "Delete     - delete a speciality\n" +
@@ -47,10 +46,8 @@ public class Cathedra extends Named {
                     changeName();
                     break;
                 case "list":
-                    System.out.println(getNames(teachers));
+                    System.out.println("Teachers:\n    " + getNames(teachers) + "\nSpecialities:\n    "+getNames(spec));
                     break;
-                case "list s":
-                    System.out.println(getNames(spec));
                 case "add staff":
                     newTeachers();
                     break;
