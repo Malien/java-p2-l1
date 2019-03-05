@@ -36,13 +36,13 @@ public abstract class Named {
      * @author Yaroslav Petryk
      */
     String getPath(){
-        String path = "> ";
+        String path = "";
         Named parent = this;
         while (parent != null) {
-            path = parent.name.concat(path);
+            path = parent.name.concat("/"+path);
             parent = parent.parent;
         }
-        path += name + "> ";
+        path += "> ";
         return path;
     }
 

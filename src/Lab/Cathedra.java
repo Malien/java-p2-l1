@@ -7,15 +7,15 @@ import static Utility.DataManagement.*;
 public class Cathedra extends Named {
 
     private static final String HELP_MSG = "Available commands:\n" +
-            "Name - change the name of cathedra\n" +
-            "List - show list of all staff\n" +
+            "Name   - change the name of cathedra\n" +
+            "List   - show list of all staff\n" +
             "Add staff \n" +
             "Add specialities \n" +
-            "Staff - make changes to the staff\n" +
-            "Speciality E - edit a speciality\n" +
-            "Speciality D - delete a speciality\n" +
-            "Help - show this message again\n" +
-            "Stop - exit cathedra configuration";
+            "Staff  - make changes to the staff\n" +
+            "Edit   - edit a speciality\n" +
+            "Delete - delete a speciality\n" +
+            "Help   - show this message again\n" +
+            "Stop   - exit cathedra configuration";
 
     private ArrayList<Teacher> teachers = new ArrayList<>();
     private ArrayList<Speciality> spec = new ArrayList<>();
@@ -46,10 +46,10 @@ public class Cathedra extends Named {
                 case "add specialities":
                     newSpeciality();
                     break;
-                case "speciality E":
+                case "speciality e":
                     editSpeciality();
                     break;
-                case "speciality D":
+                case "speciality d":
                     deleteSpeciality();
                     break;
                 case "staff":
@@ -67,9 +67,17 @@ public class Cathedra extends Named {
         }
     }
 
+    public void addTeacher(String teacherName){
+        teachers.add(new Teacher(this, teacherName));
+    }
 
+    public Speciality addSpec(String specName){
+        Speciality speciality = new Speciality(this, specName);
+        spec.add(speciality);
+        return speciality;
+    }
 
-    public ArrayList<Student> getCathedraStudents(){
+    public ArrayList<Student> getStudents(){
         ArrayList <Student> stud = new ArrayList<>();
         for (Speciality t : spec){
             stud.extend(t.getStudents());
@@ -91,8 +99,12 @@ public class Cathedra extends Named {
             String specName = getString("The name of a speciality is: ");
             //makes sure there is no duplication among teachers` names
             if (specName.equals("stop")) break;
-            else if (contains(spec, specName)) {
+            if (contains(spec, specName)) {
                 System.out.println("Such name for speciality is already used.");
+                continue;
+            }
+            if (specName.isEmpty()) {
+                System.out.println("Entered name is empty. Enter another one");
                 continue;
             }
             spec.add(new Speciality(this, specName));

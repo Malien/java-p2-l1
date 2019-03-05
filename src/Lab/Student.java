@@ -1,14 +1,21 @@
 package Lab;
 
 public class Student extends Named {
-    protected int group;
-    protected int course;
+    private int group;
+    private int course;
 
     Student(Named parent, String name) {
         this.parent = parent;
         this.name = name;
         group = getInt("Enter the group of a student: ");
         course = getInt("Enter the course of a student: ");
+    }
+
+    Student(Named parent, String name, int group, int course){
+        this.parent = parent;
+        this.name = name;
+        this.group = group;
+        this.course = course;
     }
 
     public int getGroup() {

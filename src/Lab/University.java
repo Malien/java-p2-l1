@@ -27,7 +27,7 @@ public class University extends Named {
     public University(String name) {
         this.name = name;
         System.out.println("Initial configuration of university. Please enter the faculties first.");
-        addFaculty();
+        addFaculties();
     }
 
     /**
@@ -43,7 +43,7 @@ public class University extends Named {
                     changeName();
                     break;
                 case "add":
-                    addFaculty();
+                    addFaculties();
                     break;
                 case "edit":
                     editFaculty();
@@ -54,7 +54,7 @@ public class University extends Named {
                     System.out.println(getNames(faculties));
                     break;
                 case "find":
-                 //   find();!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    find();
                     break;
                 case "display":
                     displayStudentsByCourse();
@@ -71,10 +71,16 @@ public class University extends Named {
         }
     }
 
+    public Faculty addFaculty(String facultyName){
+        Faculty fac = new Faculty(this, facultyName);
+        faculties.add(fac);
+        return fac;
+    }
+
     /**
      * @author Rozhko Andrew
      */
-    private void addFaculty() {
+    private void addFaculties() {
     int tempCount = 0;
         System.out.println("To stop entering faculty names type \"stop\"");
         while (true) {
@@ -82,6 +88,10 @@ public class University extends Named {
             if (facultyName.equals("stop")) break;
             if (contains(faculties, facultyName)) {
                 System.out.println("Such faculty already exists.");
+                continue;
+            }
+            if (facultyName.isEmpty()) {
+                System.out.println("Entered name is empty. Enter another one");
                 continue;
             }
             faculties.add(new Faculty(this, facultyName));
@@ -152,12 +162,12 @@ public class University extends Named {
         }
         return teachers;
     }
-/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
     /**
      * Search handler for finding students or teachers
      * @author Yaroslav Petryk
      */
-  /*  private void find() {
+    private void find() {
         ArrayList<Student> foundStudents = new ArrayList<>();
         ArrayList<Teacher> foundTeachers = new ArrayList<>();
 
@@ -185,7 +195,7 @@ public class University extends Named {
                 foundTeachers.add(teacher);
                 continue;
             }
-            if (isNumber && (teacher.getCourse() == num || teacher.getGroup() == num)){
+            if (teacher.parent.name.contains(key)){
                 foundTeachers.add(teacher);
             }
         }
@@ -202,14 +212,12 @@ public class University extends Named {
         if (!foundTeachers.isEmpty()){
             System.out.println("Teachers:");
             for (Teacher teacher : foundTeachers){
-                System.out.println("    " + teacher.getName() + " course:" + teacher.getCourse() +
-                        " group:" + teacher.getGroup());
+                System.out.println("    " + teacher.getName() + " cathedra:" + teacher.parent.name);
             }
         } else {
             System.out.println("No teachers found");
         }
     }
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
     /**
      * Prints out students sorted out by course

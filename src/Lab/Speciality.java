@@ -1,18 +1,19 @@
 package Lab;
 
 import Utility.ArrayList;
+
 import static Utility.DataManagement.contains;
 import static Utility.DataManagement.getNames;
 
 public class Speciality extends Named {
 
     private static final String HELP_MSG = "Available commands:\n" +
-            "Name - change the name of a speciality\n" +
-            "List - show list of all students\n" +
-            "Add students \n" +
+            "Name    - change the name of a speciality\n" +
+            "List    - show list of all students\n" +
+            "Add     - add students to speciality\n" +
             "Student - make changes to the staff\n" +
-            "Help - show this message again\n" +
-            "Stop - exit speciality configuration";
+            "Help    - show this message again\n" +
+            "Stop    - exit speciality configuration";
 
     private ArrayList <Student> students = new ArrayList<>();
 
@@ -21,20 +22,18 @@ public class Speciality extends Named {
         this.parent = parent;
     }
 
-
-
     public void handleConsole(){
         System.out.println(HELP_MSG);
         label :while(true) {
             String ans = getString();
             switch (ans.toLowerCase()) {
                 case ("name"):
-                    rename();
+                    changeName();
                     break;
                 case ("list"):
                     System.out.println(students.toPlainString());
                     break;
-                case ("add student"):
+                case ("add"):
                     newStudents();
                     break;
                 case ("student"):
@@ -51,8 +50,8 @@ public class Speciality extends Named {
 
     }
 
-    private void rename() {
-        name = getString("Enter new name for " + name);
+    public void addStudent(String studentName, int course, int group){
+        students.add(new Student(this, studentName, course, group));
     }
 
     /**
@@ -68,8 +67,12 @@ public class Speciality extends Named {
             String studentName = getString("The name of a student is: ");
             //makes sure there is no duplication among students` names
             if (studentName.equals("stop")) break;
-            else if (contains(students, studentName)) {
+            if (contains(students, studentName)) {
                 System.out.println("Such name for student is already used.");
+                continue;
+            }
+            if (studentName.isEmpty()) {
+                System.out.println("Entered name is empty. Enter another one");
                 continue;
             }
             students.add(new Student(this, studentName));

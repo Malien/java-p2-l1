@@ -20,13 +20,13 @@ public class Faculty extends Named{
     Faculty(Named parent, String name) {
         this.parent = parent;
         this.name = name;
-        addCathedra();
+        addCathedras();
     }
 
     /**
      * @author Rozhko Andrew
      */
-    private void addCathedra() {
+    private void addCathedras() {
         int tempCount = 0;
         String cathedraName;
         System.out.println("To stop entering cathedras names type \"stop\"");
@@ -35,6 +35,10 @@ public class Faculty extends Named{
             if (cathedraName.equals("stop")) break;
             if (contains(cathedras, cathedraName)) {
                 System.out.println("Such cathedra already exists.");
+                continue;
+            }
+            if (cathedraName.isEmpty()) {
+                System.out.println("Entered name is empty. Enter another one");
                 continue;
             }
             cathedras.add(new Cathedra(this, cathedraName));
@@ -58,7 +62,7 @@ public class Faculty extends Named{
                     changeName();
                     break;
                 case "add":
-                    addCathedra();
+                    addCathedras();
                     break;
                 case "edit":
                     editCathedra();
@@ -81,6 +85,12 @@ public class Faculty extends Named{
         }
     }
 
+    public Cathedra addCathedra(String cathedraName){
+        Cathedra cathedra = new Cathedra(this, cathedraName);
+        cathedras.add(cathedra);
+        return cathedra;
+    }
+
     /**
      * Get the list of all students on faculty
      * @return ArrayList of students
@@ -89,7 +99,7 @@ public class Faculty extends Named{
     ArrayList<Student> getStudents(){
         ArrayList<Student> students = new ArrayList<>();
         for (Cathedra cathedra : cathedras){
-            students.extend(cathedra.getCathedraStudents());
+            students.extend(cathedra.getStudents());
         }
         return students;
     }
