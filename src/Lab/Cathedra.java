@@ -51,7 +51,7 @@ public class Cathedra extends Named {
                 case "add staff":
                     newTeachers();
                     break;
-                case "add specialities":
+                case "add spec":
                     newSpeciality();
                     break;
                 case "edit":
